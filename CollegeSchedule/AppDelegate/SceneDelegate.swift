@@ -30,8 +30,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         searchHostingController.navigationItem.searchController = UISearchController(searchResultsController: nil)
         searchNavigationController.navigationBar.prefersLargeTitles = true
 
-        let settingsView: some View = SettingsView().environment(\.managedObjectContext, context)
-        let settingsHostingController: UIHostingController = UIHostingController(rootView: settingsView)
+        //let settingsView: some View = SettingsView().environment(\.managedObjectContext, context)
+        //let settingsHostingController: UIHostingController = UIHostingController(rootView: settingsView)
+        let settingsHostingController: SettingsViewController = SettingsViewController()
         let settingsNavigationController: UINavigationController = UINavigationController(
                 rootViewController: settingsHostingController
         )
