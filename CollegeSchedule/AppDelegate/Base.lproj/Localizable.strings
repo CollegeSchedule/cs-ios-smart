@@ -1,0 +1,36 @@
+"general.next" = "Next";
+"general.done" = "Done";
+"general.cancel" = "Cancel";
+
+"today.title" = "Today";
+
+"groups.title" = "Groups";
+
+"teachers.title" = "Teachers";
+
+"settings.title" = "Settings";
+"settings.section.header.sign.in" = "Sign in with the College ID";
+"settings.section.header.sign.in.description" = "Sign in to access all the features.";
+"settings.section.authentication.id" = "College ID";
+"settings.section.authentication.password" = "Password";
+"settings.section.authentication.id.description" = "Sign in with the College ID to use all the features of application.";
+"settings.section.authentication.enter.id" = "Enter your College ID";
+"settings.section.authentication.enter.password" = "Enter your password";
+"settings.section.app.appearance" = "Appearance";
+"settings.section.app.appearance.title" = "Appearance";
+"settings.section.app.appearance.toggle.header" = "LIGHT & DARK MODE";
+"settings.section.app.appearance.toggle.footer" = "When the switch is on, the system appearance is used.";
+"settings.section.app.appearance.toggle.title" = "Appearance";
+"settings.section.app.appearance.switch.light" = "Always Light";
+"settings.section.app.appearance.switch.dark" = "Always Dark";
+"settings.section.app.appearance.switch.footer" = "The selected appearance will be used. System appearance is ignored.";
+"settings.section.app.language" = "Language";
+"settings.section.feedback.title" = "Feedback";
+"settings.section.feedback.write.review" = "Write a Review";
+"settings.section.feedback.contact.developer" = "Contact the Developer";
+"settings.section.feedback.site" = "Website";
+"settings.section.about.about.app" = "About App";
+"settings.section.about.about.app.title" = "About App";
+"settings.section.about.about.app.version" = "Version";
+"settings.section.about.about.app.changelog" = "Changelog";
+
