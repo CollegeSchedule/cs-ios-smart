@@ -42,19 +42,14 @@ class SettingsAboutViewController: UIViewController {
 
 extension SettingsAboutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "settings")
+        let cell = UITableViewCell.init(style: .value1, reuseIdentifier: "settings")
         let row = self.rows[indexPath.section].items[indexPath.row]
+
+        cell.selectionStyle = .none
+        cell.textLabel?.text = row.title
+        cell.detailTextLabel?.text = row.detail
         
-        if (cell == nil) {
-            cell = UITableViewCell.init(style: .value1, reuseIdentifier: "settings")
-        }
-        
-    
-        cell!.selectionStyle = .none
-        cell!.textLabel?.text = row.title
-        cell!.detailTextLabel?.text = "test"
-        
-        return cell!
+        return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
