@@ -24,6 +24,7 @@
 		84D4863723DAF626007ACF8F /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D4863623DAF626007ACF8F /* UIImage.swift */; };
 		84D4863A23DAF6CE007ACF8F /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D4863923DAF6CE007ACF8F /* SettingsSection.swift */; };
 		84D4863C23DAF6DE007ACF8F /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D4863B23DAF6DE007ACF8F /* SettingsRow.swift */; };
+		F0EE787AE6DAAA63FA8086B9 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE7707D18C935D15CFDD48 /* UIApplication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		997FCE7308A938394069A6DC /* Pods-CollegeSchedule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CollegeSchedule.debug.xcconfig"; path = "Target Support Files/Pods-CollegeSchedule/Pods-CollegeSchedule.debug.xcconfig"; sourceTree = "<group>"; };
 		C7B4DF3EB0733C17A3E3BF1B /* Pods_CollegeSchedule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CollegeSchedule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EE765CC449748D5C480769 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		F0EE7707D18C935D15CFDD48 /* UIApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		F0EE7F39406885D0E3F5CD68 /* TodayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,6 +154,7 @@
 			children = (
 				84D4862D23DAE956007ACF8F /* String.swift */,
 				84D4863623DAF626007ACF8F /* UIImage.swift */,
+				F0EE7707D18C935D15CFDD48 /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				65B3733123D976E10095D8B6 /* AppDelegate.swift in Sources */,
 				84D4862E23DAE956007ACF8F /* String.swift in Sources */,
 				65B3733323D976E10095D8B6 /* SceneDelegate.swift in Sources */,
+				F0EE787AE6DAAA63FA8086B9 /* UIApplication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

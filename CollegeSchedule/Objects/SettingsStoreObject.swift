@@ -23,9 +23,9 @@ class SettingsStore: ObservableObject {
 
             DispatchQueue.main.async {
                 if(self.isAppearanceAutomatically) {
-                    UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = .unspecified
+                    UIApplication.keyWindow?.overrideUserInterfaceStyle = .unspecified
                 } else {
-                    UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = self.appearance
+                    UIApplication.keyWindow?.overrideUserInterfaceStyle = self.appearance
                 }
             }
         }
@@ -36,7 +36,7 @@ class SettingsStore: ObservableObject {
             didSet {
                 UserDefaults.standard.set(self.appearance.rawValue, forKey: Keys.appearance)
                 DispatchQueue.main.async {
-                    UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = self.appearance
+                    UIApplication.keyWindow?.overrideUserInterfaceStyle = self.appearance
                 }
             }
         }
@@ -46,6 +46,6 @@ extension SettingsStore {
     func setAppearance(state: UIUserInterfaceStyle) {
         self.appearance = state
 
-        UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = state
+        UIApplication.keyWindow?.overrideUserInterfaceStyle = state
     }
 }
