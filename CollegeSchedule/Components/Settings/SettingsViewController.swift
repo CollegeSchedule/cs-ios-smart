@@ -6,7 +6,7 @@ class SettingsViewController: UIViewController {
 
     private let rows: [SettingsSection] = [
         SettingsSection(
-            title: "settings.section.app.appearance.title".localized(), 
+            header: "settings.section.app.appearance.title".localized(), 
             items: [
                 SettingsRow(
                     title: "settings.section.app.appearance".localized(), 
@@ -21,7 +21,7 @@ class SettingsViewController: UIViewController {
             ]
         ),
         SettingsSection(
-            title: "settings.section.feedback.title".localized(),
+            header: "settings.section.feedback.title".localized(),
             items: [
                 SettingsRow(
                     title: "settings.section.feedback.write.review".localized(),
@@ -41,7 +41,7 @@ class SettingsViewController: UIViewController {
             ]
         ),
         SettingsSection(
-            title: "settings.section.app.language".localized(),
+            header: "settings.section.app.language".localized(),
             items: [
                 SettingsRow(
                     title: "settings.section.about.about.app".localized(),
@@ -107,7 +107,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        self.rows[section].title
+        self.rows[section].header
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
