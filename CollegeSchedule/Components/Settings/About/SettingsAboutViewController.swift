@@ -5,15 +5,10 @@ class SettingsAboutViewController: UIViewController {
     
     private let rows: [SettingsSection] = [
         SettingsSection(
-            title: nil,
             items: [
                 SettingsRow(
                     title: "settings.section.about.about.app.version".localized(),
-                    detail: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown",
-                    icon: nil,
-                    color: nil,
-                    destination: nil,
-                    action: nil
+                    detail: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
                 )
             ]
         )

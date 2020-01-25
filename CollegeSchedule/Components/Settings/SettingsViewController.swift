@@ -6,23 +6,17 @@ class SettingsViewController: UIViewController {
 
     private let rows: [SettingsSection] = [
         SettingsSection(
-            title: "settings.section.app.appearance.title".localized(),
+            title: "settings.section.app.appearance.title".localized(), 
             items: [
                 SettingsRow(
-                    title: "settings.section.app.appearance".localized(),
-                    detail: nil,
-                    icon: "lightbulb.fill",
-                    color: .systemPurple,
-                    destination: nil,
-                    action: nil
+                    title: "settings.section.app.appearance".localized(), 
+                    icon: "lightbulb.fill", 
+                    color: .systemPurple
                 ),
                 SettingsRow(
-                    title: "settings.section.app.language".localized(),
-                    detail: nil,
-                    icon: "globe",
-                    color: .systemOrange,
-                    destination: nil,
-                    action: nil
+                    title: "settings.section.app.language".localized(), 
+                    icon: "globe", 
+                    color: .systemOrange
                 )
             ]
         ),
@@ -31,27 +25,18 @@ class SettingsViewController: UIViewController {
             items: [
                 SettingsRow(
                     title: "settings.section.feedback.write.review".localized(),
-                    detail: nil,
                     icon: "heart.fill",
-                    color: .systemPink,
-                    destination: nil,
-                    action: nil
+                    color: .systemPink
                 ),
                 SettingsRow(
                     title: "settings.section.feedback.contact.developer".localized(),
-                    detail: nil,
                     icon: "envelope.fill",
-                    color: .systemBlue,
-                    destination: nil,
-                    action: nil
+                    color: .systemBlue
                 ),
                 SettingsRow(
                     title: "settings.section.feedback.site".localized(),
-                    detail: nil,
                     icon: "desktopcomputer",
-                    color: .systemGreen,
-                    destination: nil,
-                    action: nil
+                    color: .systemGreen
                 )
             ]
         ),
@@ -60,7 +45,6 @@ class SettingsViewController: UIViewController {
             items: [
                 SettingsRow(
                     title: "settings.section.about.about.app".localized(),
-                    detail: nil,
                     icon: "house.fill",
                     color: .systemPink,
                     destination: {
@@ -69,8 +53,7 @@ class SettingsViewController: UIViewController {
                         controller.title = "settings.section.about.about.app.title".localized()
                         
                         return controller
-                    }(),
-                    action: nil
+                    }()
                 )
             ]
         )

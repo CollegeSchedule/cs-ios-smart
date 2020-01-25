@@ -1,4 +1,4 @@
 struct SettingsSection {
-    public let title: String?
+    public var title: String? = nil
     public let items: [SettingsRow]
 }

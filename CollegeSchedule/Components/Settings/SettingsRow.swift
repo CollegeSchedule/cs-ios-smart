@@ -2,9 +2,11 @@ import UIKit
 
 struct SettingsRow {
     public let title: String
-    public let detail: String?
-    public let icon: String?
-    public let color: UIColor?
-    public let destination: UIViewController?
-    public let action: (() -> Void)?
+    public var detail: String? = nil
+    public var icon: String? = nil
+    public var color: UIColor? = nil
+    public var destination: UIViewController? = nil
+    public var action: (() -> Void)? = nil
+    public var selectable: Bool = false
+    public var toggleable: Bool = false
 }
