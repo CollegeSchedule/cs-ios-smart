@@ -16,6 +16,25 @@ class SettingsAppearanceViewController: UIViewController {
         )
     ]
 
+    private let switchSection: SettingsSection = SettingsSection(
+        footer: "settings.section.app.appearance.switch.footer".localized(),
+        items: [
+            SettingsRow(
+                title: "settings.section.app.appearance.switch.light".localized(),
+                selectable: true,
+                special: .appearanceLight
+            ),
+            SettingsRow(
+                title: "settings.section.app.appearance.switch.dark".localized(),
+                selectable: true,
+                special: .appearanceDark
+            )
+        ]
+    )
+
+    private let lightIndexSet: IndexPath = IndexPath(row: 0, section: 1)
+    private let darkIndexSet: IndexPath = IndexPath(row: 1, section: 1)
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,24 +55,7 @@ class SettingsAppearanceViewController: UIViewController {
         ])
 
         if (!SettingsStore.instance.isAppearanceAutomatically) {
-            self.rows.append(contentsOf: [
-                SettingsSection(
-                    footer: "settings.section.app.appearance.switch.footer".localized(),
-                    items: [
-                        SettingsRow(
-                            title: "settings.section.app.appearance.switch.light".localized(),
-                            selectable: true,
-                            special: .appearanceLight
-                        ),
-                        SettingsRow(
-                            title: "settings.section.app.appearance.switch.dark".localized(),
-                            selectable: true,
-                            special: .appearanceDark
-                        )
-                    ]
-                )
-            ])
-            self.settingsView.insertSections(IndexSet(integer: 1), with: .fade)
+            self.addSwitchSelection()
         }
     }
 }
@@ -63,65 +65,27 @@ extension SettingsAppearanceViewController: UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
         let row = self.rows[indexPath.section].items[indexPath.row]
 
+        cell.selectionStyle = .none
+        cell.textLabel?.text = row.title
+
         if(row.toggleable) {
             let switchView = UISwitch(frame: .zero)
 
             switchView.setOn(SettingsStore.instance.isAppearanceAutomatically, animated: false)
             switchView.tag = indexPath.row
-            switchView.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
+            switchView.addTarget(self, action: #selector(self.switchChanged), for: .valueChanged)
 
             cell.accessoryView = switchView
-        } else if(row.selectable) {
-            switch (row.special!) {
-                case .appearanceLight:
-                    if(SettingsStore.instance.appearance == UIUserInterfaceStyle.light) {
-                        cell.accessoryType = .checkmark
-                    }
-
-                    break
-                case .appearanceDark:
-                    if(SettingsStore.instance.appearance == UIUserInterfaceStyle.dark) {
-                        cell.accessoryType = .checkmark
-                    }
-
-                    break
+        } else {
+            if ((row.special! == SettingsRow.Special.appearanceLight
+                && SettingsStore.instance.appearance == UIUserInterfaceStyle.light)
+                || (row.special! == SettingsRow.Special.appearanceDark
+                && SettingsStore.instance.appearance == UIUserInterfaceStyle.dark)) {
+                cell.accessoryType = .checkmark
             }
         }
 
-
-        cell.selectionStyle = .none
-        cell.textLabel?.text = row.title
-
         return cell
-    }
-
-    @objc
-    func switchChanged(_ sender : UISwitch!) {
-        if(sender.isOn) {
-            self.rows.remove(at: 1)
-            self.settingsView.deleteSections(IndexSet(integer: 1), with: .fade)
-        } else {
-            self.rows.append(contentsOf: [
-                SettingsSection(
-                    footer: "settings.section.app.appearance.switch.footer".localized(),
-                    items: [
-                        SettingsRow(
-                            title: "settings.section.app.appearance.switch.light".localized(),
-                            selectable: true,
-                            special: .appearanceLight
-                        ),
-                        SettingsRow(
-                            title: "settings.section.app.appearance.switch.dark".localized(),
-                            selectable: true,
-                            special: .appearanceDark
-                        )
-                    ]
-                )
-            ])
-            self.settingsView.insertSections(IndexSet(integer: 1), with: .fade)
-        }
-
-        SettingsStore.instance.isAppearanceAutomatically = sender.isOn
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -129,19 +93,18 @@ extension SettingsAppearanceViewController: UITableViewDelegate, UITableViewData
             return
         }
 
-        if(indexPath.row == 0) {
-            // Light selected
+        let row = self.rows[indexPath.section].items[indexPath.row]
 
-            self.settingsView.cellForRow(at: IndexPath(row: 1, section: 1))?.accessoryType = .none
-            self.settingsView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        if(row.special! == SettingsRow.Special.appearanceLight) {
             SettingsStore.instance.appearance = UIUserInterfaceStyle.light
-        } else if(indexPath.row == 1) {
-            // Dark selected
-
-            self.settingsView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .none
-            self.settingsView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        } else if(row.special! == SettingsRow.Special.appearanceDark) {
             SettingsStore.instance.appearance = UIUserInterfaceStyle.dark
         }
+
+        self.settingsView.cellForRow(at: self.lightIndexSet)?.accessoryType
+            = (row.special! == SettingsRow.Special.appearanceLight) ? .checkmark : .none
+        self.settingsView.cellForRow(at: self.darkIndexSet)?.accessoryType
+            = (row.special! != SettingsRow.Special.appearanceLight) ? .checkmark : .none
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -158,5 +121,29 @@ extension SettingsAppearanceViewController: UITableViewDelegate, UITableViewData
 
     func numberOfSections(in tableView: UITableView) -> Int {
         self.rows.count
+    }
+}
+
+extension SettingsAppearanceViewController {
+    @objc
+    func switchChanged(_ sender : UISwitch!) {
+        SettingsStore.instance.isAppearanceAutomatically = sender.isOn
+
+        if(sender.isOn) {
+            self.removeSwitchSelection()
+        } else {
+            self.addSwitchSelection()
+        }
+    }
+
+    private func addSwitchSelection() {
+        self.rows.append(contentsOf: [self.switchSection])
+        self.settingsView.insertSections(IndexSet(integer: 1), with: .fade)
+
+    }
+
+    private func removeSwitchSelection() {
+        self.rows.remove(at: 1)
+        self.settingsView.deleteSections(IndexSet(integer: 1), with: .fade)
     }
 }
