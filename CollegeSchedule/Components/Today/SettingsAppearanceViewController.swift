@@ -72,10 +72,6 @@ extension SettingsAppearanceViewController: UITableViewDelegate, UITableViewData
 
             cell.accessoryView = switchView
         } else if(row.selectable) {
-            print(row.special!)
-            print(SettingsStore.instance.appearance)
-            print(SettingsStore.instance.isAppearanceAutomatically)
-
             switch (row.special!) {
                 case .appearanceLight:
                     if(SettingsStore.instance.appearance == UIUserInterfaceStyle.light) {
@@ -117,7 +113,7 @@ extension SettingsAppearanceViewController: UITableViewDelegate, UITableViewData
                         SettingsRow(
                             title: "settings.section.app.appearance.switch.dark".localized(),
                             selectable: true,
-                            special: .appearanceLight
+                            special: .appearanceDark
                         )
                     ]
                 )
