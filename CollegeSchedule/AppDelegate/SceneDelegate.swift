@@ -50,6 +50,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
 
+            if(!SettingsStore.instance.isAppearanceAutomatically) {
+                self.window!.overrideUserInterfaceStyle = SettingsStore.instance.appearance
+            }
+            
             self.window!.rootViewController = tabController
             self.window!.makeKeyAndVisible()
         }

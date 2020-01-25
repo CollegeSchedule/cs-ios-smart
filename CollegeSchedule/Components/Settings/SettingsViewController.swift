@@ -11,7 +11,14 @@ class SettingsViewController: UIViewController {
                 SettingsRow(
                     title: "settings.section.app.appearance".localized(), 
                     icon: "lightbulb.fill", 
-                    color: .systemPurple
+                    color: .systemPurple,
+                    destination: {
+                        let controller: SettingsAppearanceViewController = SettingsAppearanceViewController()
+
+                        controller.title = "settings.section.app.appearance.title".localized()
+
+                        return controller
+                    }()
                 ),
                 SettingsRow(
                     title: "settings.section.app.language".localized(), 
