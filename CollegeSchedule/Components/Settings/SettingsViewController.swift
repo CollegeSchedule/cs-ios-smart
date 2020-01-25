@@ -23,7 +23,10 @@ class SettingsViewController: UIViewController {
                 SettingsRow(
                     title: "settings.section.app.language".localized(), 
                     icon: "globe", 
-                    color: .systemOrange
+                    color: .systemOrange,
+                    action: {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+                    }
                 )
             ]
         ),
@@ -33,17 +36,30 @@ class SettingsViewController: UIViewController {
                 SettingsRow(
                     title: "settings.section.feedback.write.review".localized(),
                     icon: "heart.fill",
-                    color: .systemPink
+                    color: .systemPink,
+                    action: {}
                 ),
                 SettingsRow(
                     title: "settings.section.feedback.contact.developer".localized(),
                     icon: "envelope.fill",
-                    color: .systemBlue
+                    color: .systemBlue,
+                    action: {
+                        UIApplication.keyWindow?.overrideUserInterfaceStyle = .unspecified
+
+                        if let url = URL(string: "https://vk.com/impug") {
+                            UIApplication.shared.open(url)
+                        }
+                    }
                 ),
                 SettingsRow(
                     title: "settings.section.feedback.site".localized(),
                     icon: "desktopcomputer",
-                    color: .systemGreen
+                    color: .systemGreen,
+                    action: {
+                        if let url = URL(string: "http://nke.ru") {
+                            UIApplication.shared.open(url)
+                        }
+                    }
                 )
             ]
         ),
@@ -105,8 +121,12 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let destination = self.rows[indexPath.section].items[indexPath.row].destination {
+        let row = self.rows[indexPath.section].items[indexPath.row]
+
+        if let destination = row.destination {
             self.navigationController?.pushViewController(destination, animated: true)
+        } else if let action = row.action {
+            action()
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
