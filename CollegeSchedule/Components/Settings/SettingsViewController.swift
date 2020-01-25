@@ -56,28 +56,28 @@ class SettingsViewController: UIViewController {
                     color: .systemPink,
                     destination: {
                         let controller = SettingsAboutViewController()
-                        
+
                         controller.title = "settings.section.about.about.app.title".localized()
-                        
+
                         return controller
                     }()
                 )
             ]
         )
     ]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.backgroundColor = .white
-        
+
         self.settingsView.delegate = self
         self.settingsView.dataSource = self
         self.settingsView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "settings")
         self.settingsView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         self.view.addSubview(self.settingsView)
-        
+
         NSLayoutConstraint.activate([
             self.settingsView.topAnchor.constraint(equalTo: self.view.topAnchor),
             self.settingsView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
@@ -91,7 +91,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
         let row = self.rows[indexPath.section].items[indexPath.row]
-        
+
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = row.title
         cell.imageView?.image = UIImage(systemName: row.icon!)?
@@ -100,27 +100,26 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.imageView?.backgroundColor = row.color
         cell.imageView?.contentMode = .scaleAspectFit
         cell.imageView?.layer.cornerRadius = 8
-        cell.imageView?.layer.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-        
+
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let destination = self.rows[indexPath.section].items[indexPath.row].destination {
             self.navigationController?.pushViewController(destination, animated: true)
         }
-        
+
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         self.rows[section].header
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.rows[section].items.count
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         self.rows.count
     }
@@ -130,14 +129,14 @@ private class SettingsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         self.imageView?.frame.size.width = 32
         self.imageView?.frame.size.height = 32
     }
