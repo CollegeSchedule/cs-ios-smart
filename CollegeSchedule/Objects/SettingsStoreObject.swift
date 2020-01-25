@@ -21,13 +21,13 @@ class SettingsStore: ObservableObject {
         didSet {
             UserDefaults.standard.set(self.isAppearanceAutomatically, forKey: Keys.appearanceAutomatically)
 
-            DispatchQueue.main.async(execute: {
+            DispatchQueue.main.async {
                 if(self.isAppearanceAutomatically) {
                     UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = .unspecified
                 } else {
                     UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = self.appearance
                 }
-            })
+            }
         }
     }
 
@@ -35,7 +35,9 @@ class SettingsStore: ObservableObject {
         .flatMap { UIUserInterfaceStyle(rawValue: Int($0) ?? 0) } ?? UIUserInterfaceStyle.unspecified {
             didSet {
                 UserDefaults.standard.set(self.appearance.rawValue, forKey: Keys.appearance)
-                UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = self.appearance
+                DispatchQueue.main.async {
+                    UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = self.appearance
+                }
             }
         }
 }
