@@ -65,6 +65,7 @@ extension SettingsAppearanceViewController: UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
         let row = self.rows[indexPath.section].items[indexPath.row]
 
+        cell.accessoryType = .none
         cell.selectionStyle = .none
         cell.textLabel?.text = row.title
 
