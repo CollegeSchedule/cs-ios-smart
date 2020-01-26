@@ -44,18 +44,8 @@ class SettingsViewController: UIViewController {
                 SettingsRow(
                     title: "settings.section.feedback.write.review".localized(),
                     icon: "heart.fill",
-                    color: .systemPink,
-                    action: {}
-                ),
-                SettingsRow(
-                    title: "settings.section.feedback.site".localized(),
-                    icon: "desktopcomputer",
                     color: .systemGreen,
-                    action: {
-                        if let url = URL(string: "http://nke.ru") {
-                            UIApplication.shared.open(url)
-                        }
-                    }
+                    action: {}
                 ),
                 SettingsRow(
                     title: "settings.section.feedback.contact.developer".localized(),
@@ -69,11 +59,6 @@ class SettingsViewController: UIViewController {
                         }
                     }
                 ),
-            ]
-        ),
-        SettingsSection(
-            header: "settings.section.about.about.app.title".localized(),
-            items: [
                 SettingsRow(
                     title: "settings.section.about.about.app".localized(),
                     icon: "house.fill",
@@ -86,6 +71,12 @@ class SettingsViewController: UIViewController {
                         return controller
                     }()
                 )
+            ]
+        ),
+        SettingsSection(
+//            header: "settings.section.about.about.app.title".localized(),
+            items: [
+
             ]
         )
     ]
