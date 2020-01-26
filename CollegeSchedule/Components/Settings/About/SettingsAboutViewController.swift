@@ -22,16 +22,10 @@ class SettingsAboutViewController: UIViewController {
         self.settingsView.delegate = self
         self.settingsView.dataSource = self
         self.settingsView.register(UITableViewCell.self, forCellReuseIdentifier: "settings")
-        self.settingsView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         self.view.addSubview(self.settingsView)
         
-        NSLayoutConstraint.activate([
-            self.settingsView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            self.settingsView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            self.settingsView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            self.settingsView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-        ])
+        self.settingsView.pin(to: self.view)
     }
 }
 
