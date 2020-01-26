@@ -4,6 +4,8 @@ struct SettingsRow {
     enum Special : Int {
         case appearanceDark
         case appearanceLight
+
+        case cellAuthentication
     }
 
     enum DestinationType : Int {

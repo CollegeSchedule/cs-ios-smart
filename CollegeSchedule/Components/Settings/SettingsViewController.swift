@@ -6,6 +6,14 @@ class SettingsViewController: UIViewController {
 
     private let rows: [SettingsSection] = [
         SettingsSection(
+            items: [
+                SettingsRow(
+                    title: "",
+                    special: .cellAuthentication
+                )
+            ]
+        ),
+        SettingsSection(
             header: "settings.section.app.appearance.title".localized(), 
             items: [
                 SettingsRow(
@@ -90,6 +98,7 @@ class SettingsViewController: UIViewController {
         self.settingsView.delegate = self
         self.settingsView.dataSource = self
         self.settingsView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "settings")
+        self.settingsView.register(SettingsAuthenticationTableViewCell.self, forCellReuseIdentifier: "settings_authentication")
         self.settingsView.translatesAutoresizingMaskIntoConstraints = false
 
         self.view.addSubview(self.settingsView)
@@ -106,17 +115,34 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = self.rows[indexPath.section].items[indexPath.row]
+        var cell: UITableViewCell? = nil
 
-        cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = row.title
-        cell.imageView?.image = UIImage(systemName: row.icon!)?
-            .imageWithInsets(insets: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))?
-            .withTintColor(.white, renderingMode: .automatic)
-        cell.imageView?.backgroundColor = row.color
-        cell.imageView?.contentMode = .scaleAspectFit
-        cell.imageView?.layer.cornerRadius = 8
+        if(row.special == SettingsRow.Special.cellAuthentication) {
+            cell = tableView.dequeueReusableCell(withIdentifier: "settings_authentication", for: indexPath)
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
+        }
 
-        return cell
+        if let cell = cell {
+            cell.accessoryType = .disclosureIndicator
+            cell.textLabel?.text = row.title
+
+            if let icon = row.icon {
+                cell.imageView?.image = UIImage(systemName: icon)?
+                    .imageWithInsets(insets: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))?
+                    .withTintColor(.white, renderingMode: .automatic)
+            }
+
+            cell.imageView?.backgroundColor = row.color
+            cell.imageView?.contentMode = .scaleAspectFit
+            cell.imageView?.layer.cornerRadius = 8
+        }
+
+        return cell!
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        self.rows[indexPath.section].items[indexPath.row].special == SettingsRow.Special.cellAuthentication ? 72 : -1.0
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
