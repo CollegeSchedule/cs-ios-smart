@@ -40,6 +40,16 @@ class SettingsViewController: UIViewController {
                     action: {}
                 ),
                 SettingsRow(
+                    title: "settings.section.feedback.site".localized(),
+                    icon: "desktopcomputer",
+                    color: .systemGreen,
+                    action: {
+                        if let url = URL(string: "http://nke.ru") {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                ),
+                SettingsRow(
                     title: "settings.section.feedback.contact.developer".localized(),
                     icon: "envelope.fill",
                     color: .systemBlue,
@@ -51,20 +61,10 @@ class SettingsViewController: UIViewController {
                         }
                     }
                 ),
-                SettingsRow(
-                    title: "settings.section.feedback.site".localized(),
-                    icon: "desktopcomputer",
-                    color: .systemGreen,
-                    action: {
-                        if let url = URL(string: "http://nke.ru") {
-                            UIApplication.shared.open(url)
-                        }
-                    }
-                )
             ]
         ),
         SettingsSection(
-            header: "settings.section.app.language".localized(),
+            header: "settings.section.about.about.app.title".localized(),
             items: [
                 SettingsRow(
                     title: "settings.section.about.about.app".localized(),
@@ -105,7 +105,6 @@ class SettingsViewController: UIViewController {
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
         let row = self.rows[indexPath.section].items[indexPath.row]
 
         cell.accessoryType = .disclosureIndicator
@@ -124,7 +123,14 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let row = self.rows[indexPath.section].items[indexPath.row]
 
         if let destination = row.destination {
-            self.navigationController?.pushViewController(destination, animated: true)
+            switch (row.destinationType ?? SettingsRow.DestinationType.push) {
+                case .present:
+                    self.navigationController?.present(destination, animated: true)
+                    break;
+                case .push:
+                    self.navigationController?.pushViewController(destination, animated: true)
+                    break;
+            }
         } else if let action = row.action {
             action()
         }
@@ -159,5 +165,6 @@ private class SettingsTableViewCell: UITableViewCell {
 
         self.imageView?.frame.size.width = 32
         self.imageView?.frame.size.height = 32
+        self.imageView?.frame.origin.y = (self.frame.height / 2) - (self.imageView!.frame.size.height / 2)
     }
 }
