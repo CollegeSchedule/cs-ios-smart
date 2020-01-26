@@ -53,6 +53,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             if(!SettingsStore.instance.isAppearanceAutomatically) {
                 self.window!.overrideUserInterfaceStyle = SettingsStore.instance.appearance
             }
+
+            UINavigationBar.appearance().tintColor = .systemPink
+            UITableViewCell.appearance().tintColor = .systemPink
+            UITabBar.appearance().tintColor = .systemPink
             
             self.window!.rootViewController = tabController
             self.window!.makeKeyAndVisible()
