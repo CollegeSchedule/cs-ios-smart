@@ -57,6 +57,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UINavigationBar.appearance().tintColor = .systemPink
             UITableViewCell.appearance().tintColor = .systemPink
             UITabBar.appearance().tintColor = .systemPink
+            UIButton.appearance().tintColor = .systemPink
             
             self.window!.rootViewController = tabController
             self.window!.makeKeyAndVisible()
