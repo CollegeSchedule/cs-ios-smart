@@ -8,15 +8,14 @@ class SettingsViewController: UIViewController {
         SettingsSection(
             items: [
                 SettingsRow(
-                    title: "",
-                    destination: {
+                    destinationAction: {
                         let controller: SettingsAuthenticationViewController = SettingsAuthenticationViewController()
                         let navigationController: UINavigationController = UINavigationController(rootViewController: controller)
 
                         navigationController.navigationItem.largeTitleDisplayMode = .never
 
                         return navigationController
-                    }(),
+                    },
                     destinationType: .present,
                     special: .cellAuthentication
                 )
@@ -137,14 +136,11 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let row = self.rows[indexPath.section].items[indexPath.row]
 
         if let destination = row.destination {
-            switch (row.destinationType ?? SettingsRow.DestinationType.push) {
-                case .present:
-                    self.navigationController?.present(destination, animated: true)
-                    break;
-                case .push:
-                    self.navigationController?.pushViewController(destination, animated: true)
-                    break;
-            }
+            self.present(destination: destination, destinationType: row.destinationType ?? SettingsRow.DestinationType.push)
+        } else if let destinationAction = row.destinationAction {
+            let destination: UIViewController = destinationAction()
+
+            self.present(destination: destination, destinationType: row.destinationType ?? SettingsRow.DestinationType.push)
         } else if let action = row.action {
             action()
         }
@@ -162,6 +158,19 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         self.rows.count
+    }
+}
+
+extension SettingsViewController {
+    private func present(destination: UIViewController, destinationType: SettingsRow.DestinationType) {
+        switch (destinationType) {
+            case .present:
+                self.navigationController?.present(destination, animated: true)
+                break;
+            case .push:
+                self.navigationController?.pushViewController(destination, animated: true)
+                break;
+        }
     }
 }
 
