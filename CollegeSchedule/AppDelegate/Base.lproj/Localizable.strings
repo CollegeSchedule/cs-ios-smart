@@ -16,6 +16,7 @@
 "settings.section.authentication.id.description" = "Sign in with the College ID to use all the features of application.";
 "settings.section.authentication.enter.id" = "Enter your College ID";
 "settings.section.authentication.enter.password" = "Enter your password";
+"settings.section.authentication.register" = "Don't have an College ID or forgot it?";
 "settings.section.app.appearance" = "Appearance";
 "settings.section.app.appearance.title" = "Appearance";
 "settings.section.app.appearance.toggle.header" = "LIGHT & DARK MODE";

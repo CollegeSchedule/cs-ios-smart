@@ -44,6 +44,8 @@ class SettingsAuthenticationViewController: UIViewController {
         view.autocorrectionType = .no
         view.keyboardType = .emailAddress
         view.returnKeyType = .continue
+        view.clearButtonMode = .whileEditing
+        view.addTarget(self, action: #selector(textFieldDidChangeText), for: .editingChanged)
 
         return view
     }()
@@ -57,7 +59,9 @@ class SettingsAuthenticationViewController: UIViewController {
         view.autocapitalizationType = .none
         view.autocorrectionType = .no
         view.keyboardType = .default
-        view.returnKeyType = .continue
+        view.returnKeyType = .done
+        view.clearButtonMode = .whileEditing
+        view.addTarget(self, action: #selector(textFieldDidChangeText), for: .editingChanged)
 
         return view
     }()
@@ -66,7 +70,8 @@ class SettingsAuthenticationViewController: UIViewController {
         let view: UIButton = UIButton(type: .system)
 
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle("Register", for: .normal)
+        view.setTitle("settings.section.authentication.register".localized(), for: .normal)
+        view.addTarget(self, action: #selector(registerAction), for: .touchUpInside)
 
         return view
     }()
@@ -74,27 +79,27 @@ class SettingsAuthenticationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        self.title = "Authentication"
-        // todo: not workingg
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-//        self.isModalInPresentation = true
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: #selector(cancel))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: nil, action: #selector(done))
-        self.navigationItem.rightBarButtonItem?.isEnabled = false
         self.view.backgroundColor = .systemBackground
+        self.isModalInPresentation = true
+
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneAction))
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
 
         self.fieldsView.delegate = self
         self.fieldsView.dataSource = self
-        self.fieldsView.register(SettingsAuthenticationFieldUITableViewCell.self, forCellReuseIdentifier: "field")
+        self.fieldsView.rowHeight = 46
+
+        self.emailField.delegate = self
+        self.passwordField.delegate = self
 
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.subTitleLabel)
         self.view.addSubview(self.fieldsView)
-//        // todo: move to UITableView
-//        self.view.addSubview(self.emailField)
-//        self.view.addSubview(self.passwordField)
-//
+
         self.view.addSubview(self.registerButton)
 
         NSLayoutConstraint.activate([
@@ -110,68 +115,37 @@ class SettingsAuthenticationViewController: UIViewController {
             self.fieldsView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
             self.fieldsView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
             self.fieldsView.heightAnchor.constraint(equalToConstant: 46 * 2),
-//            self.fieldsView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -200),
 
-//            self.emailField.topAnchor.constraint(equalTo: self.subTitleLabel.bottomAnchor, constant: 20),
-//            self.emailField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-//            self.emailField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-//
-//            self.passwordField.topAnchor.constraint(equalTo: self.emailField.bottomAnchor, constant: 20),
-//            self.passwordField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-//            self.passwordField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-//
             self.registerButton.topAnchor.constraint(equalTo: self.fieldsView.bottomAnchor, constant: 20),
-            self.registerButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            self.registerButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            self.registerButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0.0)
         ])
     }
 }
 
 extension SettingsAuthenticationViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = SettingsAuthenticationFieldUITableViewCell.init(style: .value1, reuseIdentifier: "field")
-
         var textField: UITextField? = nil
+        var text: String = ""
 
         if (indexPath.row == 0) {
-            cell.textLabel?.text = "Email"
-
+            text = "settings.section.authentication.id".localized()
             textField = self.emailField
         } else if (indexPath.row == 1) {
-            cell.textLabel?.text = "Password"
-
+            text = "settings.section.authentication.password".localized()
             textField = self.passwordField
         }
 
+        let cell = SettingsAuthenticationFieldUITableViewCell.init(style: .value1, reuseIdentifier: "field", textField: textField, title: text)
+
+        if (indexPath.row == 0) {
+            cell.textLabel?.text = "settings.section.authentication.id".localized()
+        } else if (indexPath.row == 1) {
+            cell.textLabel?.text = "settings.section.authentication.password".localized()
+        }
+
+        cell.textLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)
         cell.selectionStyle = .none
         cell.accessoryType = .none
-
-//        let textField: UITextField = self.emailField
-
-//        textField.translatesAutoresizingMaskIntoConstraints = false
-//        textField.adjustsFontSizeToFitWidth = true
-//        textField.textColor = .white
-//        textField.placeholder = "Field"
-//        textField.keyboardType = .emailAddress
-//        textField.returnKeyType = .continue
-//        textField.autocorrectionType = .no
-//        textField.autocapitalizationType = .none
-//        textField.textAlignment = .left
-//        textField.tag = 0
-//        textField.clearButtonMode = .never
-//        textField.isEnabled = true
-
-        if let textField = textField {
-            cell.contentView.addSubview(textField)
-
-            NSLayoutConstraint.activate([
-                textField.topAnchor.constraint(lessThanOrEqualTo: cell.contentView.topAnchor),
-                textField.bottomAnchor.constraint(lessThanOrEqualTo: cell.contentView.bottomAnchor),
-                textField.leadingAnchor.constraint(equalTo: cell.textLabel!.trailingAnchor, constant: 10),
-                textField.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
-                textField.heightAnchor.constraint(equalTo: cell.contentView.heightAnchor)
-            ])
-        }
 
         return cell
     }
@@ -179,13 +153,84 @@ extension SettingsAuthenticationViewController: UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         2
     }
+}
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        46
+extension SettingsAuthenticationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if(textField == self.emailField) {
+            self.passwordField.becomeFirstResponder()
+        } else if (textField == self.passwordField) {
+            self.view.endEditing(true)
+
+            self.doneAction()
+        }
+
+        return true
+    }
+
+    @objc
+    private func textFieldDidChangeText(_ textField: UITextField) {
+        let _ = self.checkFields()
+    }
+}
+
+extension SettingsAuthenticationViewController {
+    @objc
+    private func doneAction() {
+        if(!self.checkFields()) {
+            print("bad fields")
+        } else {
+            // api request
+            // loading view
+        }
+    }
+
+    @objc
+    private func registerAction() {}
+
+    @objc
+    private func cancel() {
+        self.dismiss(animated: true)
+    }
+
+    private func checkFields() -> Bool {
+        // todo: check email
+        // todo: check password
+
+        if(!(self.emailField.text?.isEmpty ?? true) && !(self.passwordField.text?.isEmpty ?? true)) {
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+
+            return true
+        } else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+
+            return true
+        }
     }
 }
 
 class SettingsAuthenticationFieldUITableViewCell: UITableViewCell {
+    private var textField: UITextField? = nil
+
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, textField: UITextField?, title: String) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        self.textLabel?.text = title
+        self.textField = textField
+
+        if let textField = self.textField {
+            self.contentView.addSubview(textField)
+
+            NSLayoutConstraint.activate([
+                textField.topAnchor.constraint(lessThanOrEqualTo: self.contentView.topAnchor),
+                textField.bottomAnchor.constraint(lessThanOrEqualTo: self.contentView.bottomAnchor),
+                textField.leadingAnchor.constraint(equalTo: self.textLabel!.trailingAnchor, constant: 10),
+                textField.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+                textField.heightAnchor.constraint(equalTo: self.contentView.heightAnchor)
+            ])
+        }
+    }
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -198,17 +243,5 @@ class SettingsAuthenticationFieldUITableViewCell: UITableViewCell {
         super.layoutSubviews()
 
         self.textLabel?.frame.size.width = 80
-    }
-}
-
-extension SettingsAuthenticationViewController {
-    // todo: fix
-    @objc func cancel() {
-        print("cancel")
-        self.dismiss(animated: true)
-    }
-
-    @objc func done() {
-        self.navigationController?.popViewController(animated: true)
     }
 }
