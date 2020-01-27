@@ -1,4 +1,6 @@
 import UIKit
+import AVFoundation
+import QRCodeReader
 
 class SettingsAuthenticationViewController: UIViewController {
     private let titleLabel: UILabel = {
@@ -21,6 +23,28 @@ class SettingsAuthenticationViewController: UIViewController {
         view.numberOfLines = 2
         view.textAlignment = .center
         view.font = UIFont.preferredFont(forTextStyle: .body)
+
+        return view
+    }()
+
+    private let accountImage: UIImageView = {
+        let view: UIImageView = UIImageView()
+
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFit
+        view.layer.cornerRadius = 30
+        view.backgroundColor = .systemPink
+
+        return view
+    }()
+
+    private let accountName: UILabel = {
+        let view: UILabel = UILabel()
+
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.text = "ХУИ ХУИСОВИЧ"
+        view.textAlignment = .center
+        view.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 6, weight: .semibold)
 
         return view
     }()
@@ -66,12 +90,12 @@ class SettingsAuthenticationViewController: UIViewController {
         return view
     }()
 
-    private let registerButton: UIButton = {
+    private let doneActionButton: UIButton = {
         let view: UIButton = UIButton(type: .system)
 
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setTitle("settings.section.authentication.register".localized(), for: .normal)
-        view.addTarget(self, action: #selector(registerAction), for: .touchUpInside)
+        view.addTarget(self, action: #selector(switchDoneAction), for: .touchUpInside)
 
         return view
     }()
@@ -98,16 +122,26 @@ class SettingsAuthenticationViewController: UIViewController {
 
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.subTitleLabel)
+        self.view.addSubview(self.accountImage)
+        self.view.addSubview(self.accountName)
         self.view.addSubview(self.fieldsView)
 
-        self.view.addSubview(self.registerButton)
+        self.view.addSubview(self.doneActionButton)
 
         NSLayoutConstraint.activate([
             self.titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
             self.titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.titleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
 
-            self.subTitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 20),
+            self.accountImage.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 20),
+            self.accountImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.accountImage.heightAnchor.constraint(equalToConstant: 60),
+            self.accountImage.widthAnchor.constraint(equalToConstant: 60),
+
+            self.accountName.topAnchor.constraint(equalTo: self.accountImage.bottomAnchor, constant: 20),
+            self.accountName.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+
+            self.subTitleLabel.topAnchor.constraint(equalTo: self.accountName.bottomAnchor, constant: 20),
             self.subTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.subTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
 
@@ -116,8 +150,8 @@ class SettingsAuthenticationViewController: UIViewController {
             self.fieldsView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
             self.fieldsView.heightAnchor.constraint(equalToConstant: 46 * 2),
 
-            self.registerButton.topAnchor.constraint(equalTo: self.fieldsView.bottomAnchor, constant: 20),
-            self.registerButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0.0)
+            self.doneActionButton.topAnchor.constraint(equalTo: self.fieldsView.bottomAnchor, constant: 20),
+            self.doneActionButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0.0)
         ])
     }
 }
@@ -143,7 +177,7 @@ extension SettingsAuthenticationViewController: UITableViewDelegate, UITableView
             cell.textLabel?.text = "settings.section.authentication.password".localized()
         }
 
-        cell.textLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4, weight: .bold)
         cell.selectionStyle = .none
         cell.accessoryType = .none
 
@@ -174,6 +208,7 @@ extension SettingsAuthenticationViewController: UITextFieldDelegate {
     }
 }
 
+
 extension SettingsAuthenticationViewController {
     @objc
     private func doneAction() {
@@ -186,7 +221,23 @@ extension SettingsAuthenticationViewController {
     }
 
     @objc
-    private func registerAction() {}
+    private func switchDoneAction() {
+        let readerViewController: QRCodeReaderViewController = {
+            let builder = QRCodeReaderViewControllerBuilder {
+                $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
+
+                $0.showTorchButton = false
+                $0.showSwitchCameraButton = false
+                $0.showCancelButton = false
+                $0.showOverlayView = true
+                $0.rectOfInterest = CGRect(x: 0.2, y: 0.2, width: 0.6, height: 0.6)
+            }
+
+            return QRCodeReaderViewController(builder: builder)
+        }()
+
+        self.navigationController?.present(readerViewController, animated: true)
+    }
 
     @objc
     private func cancel() {
@@ -242,6 +293,6 @@ class SettingsAuthenticationFieldUITableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        self.textLabel?.frame.size.width = 80
+        self.textLabel?.frame.size.width = 90
     }
 }

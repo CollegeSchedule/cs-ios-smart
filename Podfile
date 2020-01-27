@@ -6,5 +6,5 @@ target 'CollegeSchedule' do
   use_frameworks!
 
   # Pods for CollegeSchedule
-
+  pod "QRCodeReader.swift"
 end
