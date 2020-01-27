@@ -9,6 +9,15 @@ class SettingsViewController: UIViewController {
             items: [
                 SettingsRow(
                     title: "",
+                    destination: {
+                        let controller: SettingsAuthenticationViewController = SettingsAuthenticationViewController()
+                        let navigationController: UINavigationController = UINavigationController(rootViewController: controller)
+
+                        navigationController.navigationItem.largeTitleDisplayMode = .never
+
+                        return navigationController
+                    }(),
+                    destinationType: .present,
                     special: .cellAuthentication
                 )
             ]
@@ -71,12 +80,6 @@ class SettingsViewController: UIViewController {
                         return controller
                     }()
                 )
-            ]
-        ),
-        SettingsSection(
-//            header: "settings.section.about.about.app.title".localized(),
-            items: [
-
             ]
         )
     ]
