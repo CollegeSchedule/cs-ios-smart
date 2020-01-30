@@ -3,6 +3,11 @@ import AVFoundation
 import QRCodeReader
 
 class SettingsAuthenticationViewController: UIViewController {
+    enum DoneActionType {
+        case login
+        case signUp
+    }
+
     private let titleLabel: UILabel = {
         let view: UILabel = UILabel()
 
@@ -19,7 +24,7 @@ class SettingsAuthenticationViewController: UIViewController {
         let view: UILabel = UILabel()
 
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = "settings.section.authentication.id.description".localized()
+        view.text = "settings.section.authentication.login.description".localized()
         view.numberOfLines = 2
         view.textAlignment = .center
         view.font = UIFont.preferredFont(forTextStyle: .body)
@@ -34,6 +39,7 @@ class SettingsAuthenticationViewController: UIViewController {
         view.contentMode = .scaleAspectFit
         view.layer.cornerRadius = 30
         view.backgroundColor = .systemPink
+        view.isHidden = true
 
         return view
     }()
@@ -42,9 +48,10 @@ class SettingsAuthenticationViewController: UIViewController {
         let view: UILabel = UILabel()
 
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = "ХУИ ХУИСОВИЧ"
+        view.text = "User User"
         view.textAlignment = .center
         view.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 6, weight: .semibold)
+        view.isHidden = true
 
         return view
     }()
@@ -100,6 +107,19 @@ class SettingsAuthenticationViewController: UIViewController {
         return view
     }()
 
+    private lazy var subTitleLabelToBottomOfTitleLabel: NSLayoutConstraint = self.subTitleLabel.topAnchor.constraint(
+        equalTo: self.titleLabel.bottomAnchor,
+        constant: 20
+    )
+
+    private lazy var subTitleLabelToBottomOfAccountNameLabel: NSLayoutConstraint = self.subTitleLabel.topAnchor.constraint(
+        equalTo: self.accountName.bottomAnchor,
+        constant: 20
+    )
+
+    private var accountIdentification: AccountIdentification? = nil
+    private var doneActionType: DoneActionType = .login
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -128,6 +148,7 @@ class SettingsAuthenticationViewController: UIViewController {
 
         self.view.addSubview(self.doneActionButton)
 
+
         NSLayoutConstraint.activate([
             self.titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
             self.titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
@@ -138,10 +159,10 @@ class SettingsAuthenticationViewController: UIViewController {
             self.accountImage.heightAnchor.constraint(equalToConstant: 60),
             self.accountImage.widthAnchor.constraint(equalToConstant: 60),
 
-            self.accountName.topAnchor.constraint(equalTo: self.accountImage.bottomAnchor, constant: 20),
+            self.accountName.topAnchor.constraint(equalTo: self.accountImage.bottomAnchor, constant: 6),
             self.accountName.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
 
-            self.subTitleLabel.topAnchor.constraint(equalTo: self.accountName.bottomAnchor, constant: 20),
+            self.subTitleLabelToBottomOfTitleLabel,
             self.subTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.subTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
 
@@ -208,6 +229,27 @@ extension SettingsAuthenticationViewController: UITextFieldDelegate {
     }
 }
 
+extension SettingsAuthenticationViewController: QRCodeReaderViewControllerDelegate {
+    func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
+        reader.stopScanning()
+
+        let result = result.value.split(separator: ":")
+
+        self.accountIdentification = AccountIdentification(id: Int(result[1]) ?? 0, token: String(result[2]))
+
+        // todo: API request
+
+        self.toggleActionType(signUp: true)
+
+        self.dismiss(animated: true)
+    }
+
+    func readerDidCancel(_ reader: QRCodeReaderViewController) {
+        reader.stopScanning()
+
+        self.dismiss(animated: true)
+    }
+}
 
 extension SettingsAuthenticationViewController {
     @objc
@@ -222,21 +264,27 @@ extension SettingsAuthenticationViewController {
 
     @objc
     private func switchDoneAction() {
-        let readerViewController: QRCodeReaderViewController = {
-            let builder = QRCodeReaderViewControllerBuilder {
-                $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
+        if (self.doneActionType == .signUp) {
+            self.toggleActionType(signUp: false)
+        } else {
+            let readerViewController: QRCodeReaderViewController = {
+                let builder = QRCodeReaderViewControllerBuilder {
+                    $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
 
-                $0.showTorchButton = false
-                $0.showSwitchCameraButton = false
-                $0.showCancelButton = false
-                $0.showOverlayView = true
-                $0.rectOfInterest = CGRect(x: 0.2, y: 0.2, width: 0.6, height: 0.6)
-            }
+                    $0.showTorchButton = false
+                    $0.showSwitchCameraButton = false
+                    $0.showCancelButton = false
+                    $0.showOverlayView = true
+                    $0.rectOfInterest = CGRect(x: 0.2, y: 0.2, width: 0.6, height: 0.6)
+                }
 
-            return QRCodeReaderViewController(builder: builder)
-        }()
+                return QRCodeReaderViewController(builder: builder)
+            }()
 
-        self.navigationController?.present(readerViewController, animated: true)
+            readerViewController.delegate = self
+
+            self.navigationController?.present(readerViewController, animated: true)
+        }
     }
 
     @objc
@@ -256,6 +304,28 @@ extension SettingsAuthenticationViewController {
             self.navigationItem.rightBarButtonItem?.isEnabled = false
 
             return true
+        }
+    }
+
+    private func toggleActionType(signUp: Bool) {
+        if(signUp) {
+            self.accountImage.isHidden = false
+            self.accountName.isHidden = false
+
+            self.subTitleLabelToBottomOfTitleLabel.isActive = false
+            self.subTitleLabelToBottomOfAccountNameLabel.isActive = true
+            self.doneActionButton.setTitle("settings.section.authentication.login".localized(), for: .normal)
+            self.subTitleLabel.text = "settings.section.authentication.register.description".localized()
+            self.doneActionType = .signUp
+        } else {
+            self.accountImage.isHidden = true
+            self.accountName.isHidden = true
+
+            self.subTitleLabelToBottomOfAccountNameLabel.isActive = false
+            self.subTitleLabelToBottomOfTitleLabel.isActive = true
+            self.doneActionButton.setTitle("settings.section.authentication.register".localized(), for: .normal)
+            self.subTitleLabel.text = "settings.section.authentication.login.description".localized()
+            self.doneActionType = .login
         }
     }
 }
