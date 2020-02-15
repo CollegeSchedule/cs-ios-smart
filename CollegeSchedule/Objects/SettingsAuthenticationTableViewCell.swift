@@ -36,11 +36,11 @@ class SettingsAuthenticationTableViewCell: UITableViewCell {
 
         NSLayoutConstraint.activate([
             self.titleText.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-            self.titleText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            self.titleText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12),
+            self.titleText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            self.titleText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
 
-            self.subTitleText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            self.subTitleText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12),
+            self.subTitleText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            self.subTitleText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             self.subTitleText.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
         ])
     }

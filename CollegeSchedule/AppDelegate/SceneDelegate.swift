@@ -3,12 +3,15 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
         let tabController: UITabBarController = UITabBarController()
 
+        //
+        // MARK: - First view
+        //
         let todayView: some View = TodayView().environment(\.managedObjectContext, context)
         let todayHostingController: UIHostingController = UIHostingController(rootView: todayView)
         let todayNavigationController: UINavigationController = UINavigationController(
@@ -19,17 +22,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         todayHostingController.tabBarItem.image = UIImage(systemName: "house.fill")
         todayNavigationController.navigationBar.prefersLargeTitles = true
 
+        //
+        // MARK: - Second view
+        //
         let searchView: some View = SearchView().environment(\.managedObjectContext, context)
         let searchHostingController: UIHostingController = UIHostingController(rootView: searchView)
         let searchNavigationController: UINavigationController = UINavigationController(
                 rootViewController: searchHostingController
         )
-
+        
         searchHostingController.title = "Search"
         searchHostingController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
         searchHostingController.navigationItem.searchController = UISearchController(searchResultsController: nil)
         searchNavigationController.navigationBar.prefersLargeTitles = true
 
+        //
+        // MARK: - Third view
+        //
         //let settingsView: some View = SettingsView().environment(\.managedObjectContext, context)
         //let settingsHostingController: UIHostingController = UIHostingController(rootView: settingsView)
         let settingsHostingController: SettingsViewController = SettingsViewController()
@@ -61,6 +70,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             self.window!.rootViewController = tabController
             self.window!.makeKeyAndVisible()
+        }
+    }
+    
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        if(!SettingsStore.instance.isAppearanceAutomatically) {
+            self.window?.overrideUserInterfaceStyle = SettingsStore.instance.appearance
         }
     }
 
