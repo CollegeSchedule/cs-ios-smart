@@ -1,33 +1,30 @@
 import Foundation
+import Alamofire
 
-extension Endpoint {
-    static func authenticationInfo(id: Int, token: String, mail: String) -> Endpoint {
-        let query: [String: Any] = [
-            "id": id,
-            "token": token,
-            "mail": mail
-        ]
+struct AuthenticationResult: Decodable {
+    let access: Token
+    let refresh: Token
+}
 
-        return Endpoint(path: "/authentication/", method: .get, query: query)
-    }
+struct Token: Decodable {
+    let token: String
+    let type: TokenType
+    let lifetime: Int
+    let createdAt: Int
+}
 
-    static func authenticationSignIn(mail: String, password: String) -> Endpoint {
-        let body: [String: Any] = [
-            "mail": mail,
-            "password": password
-        ]
+enum TokenType: String, Decodable {
+    case access = "ACCESS"
+    case refresh = "REFRESH"
+}
 
-        return Endpoint(path: "/authentication/", method: .put, body: body)
-    }
-
-    static func authenticationSignUp(id: Int, token: String, mail: String, password: String) -> Endpoint {
-        let body: [String: Any] = [
-            "id": id,
-            "token": token,
-            "mail": mail,
-            "password": password
-        ]
-
-        return Endpoint(path: /authenticationSignIn(mail: <#T##String##Swift.String#>, password: <#T##String##Swift.String#>))
+extension EndPoint {
+    static func login(mail: String, password: String) -> EndPoint<AuthenticationResult> {
+        EndPoint<AuthenticationResult>(
+            url: "/authentication",
+            method: .put,
+            params: [:],
+            headers: [:]
+        )
     }
 }

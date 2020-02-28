@@ -4,74 +4,40 @@ import QRCodeReader
 import Alamofire
 
 class SettingsAuthenticationViewController: UIViewController {
-    // todo: get this piece of code out of the file
-    enum DoneActionType {
-        case login
-        case signUp
-    }
-
-    private let titleLabel: UILabel = {
-        let view: UILabel = UILabel()
-
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private let titleLabel: UILabel = UIView.initView() { view in
         view.text = "settings.section.authentication.id".localized()
         view.numberOfLines = 1
         view.textAlignment = .center
         view.font = UIFont.preferredFont(forTextStyle: .largeTitle)
-
-        return view
-    }()
-
-    private let subTitleLabel: UILabel = {
-        let view: UILabel = UILabel()
-
-        view.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private let subTitleLabel: UILabel = UIView.initView() { view in
         view.text = "settings.section.authentication.login.description".localized()
         view.numberOfLines = 2
         view.textAlignment = .center
         view.font = UIFont.preferredFont(forTextStyle: .body)
-
-        return view
-    }()
-
-    private let accountImage: UIImageView = {
-        let view: UIImageView = UIImageView()
-
-        view.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private let accountImage: UIImageView = UIView.initView() { view in
         view.contentMode = .scaleAspectFit
         view.layer.cornerRadius = 30
         view.backgroundColor = .systemPink
         view.isHidden = true
+    }
 
-        return view
-    }()
-
-    private let accountName: UILabel = {
-        let view: UILabel = UILabel()
-
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private let accountName: UILabel = UIView.initView() { view in
         view.text = "User User"
         view.textAlignment = .center
         view.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 6, weight: .semibold)
         view.isHidden = true
+    }
 
-        return view
-    }()
-
-    private let fieldsView: UITableView = {
-        let view: UITableView = UITableView(frame: .zero, style: .plain)
-
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private let fieldsView: UITableView = UIView.initView() { view in
         view.tableFooterView = UIView()
         view.isScrollEnabled = false
+    }
 
-        return view
-    }()
-
-    private let emailField: UITextField = {
-        let view: UITextField = UITextField()
-
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private let emailField: UITextField = UIView.initView() { view in
         view.placeholder = "settings.section.authentication.enter.id".localized()
         view.autocapitalizationType = .none
         view.autocorrectionType = .no
@@ -79,14 +45,9 @@ class SettingsAuthenticationViewController: UIViewController {
         view.returnKeyType = .continue
         view.clearButtonMode = .whileEditing
         view.addTarget(self, action: #selector(textFieldDidChangeText), for: .editingChanged)
+    }
 
-        return view
-    }()
-
-    private let passwordField: UITextField = {
-        let view: UITextField = UITextField()
-
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private let passwordField: UITextField = UIView.initView() { view in
         view.placeholder = "settings.section.authentication.enter.password".localized()
         view.isSecureTextEntry = true
         view.autocapitalizationType = .none
@@ -95,19 +56,12 @@ class SettingsAuthenticationViewController: UIViewController {
         view.returnKeyType = .done
         view.clearButtonMode = .whileEditing
         view.addTarget(self, action: #selector(textFieldDidChangeText), for: .editingChanged)
+    }
 
-        return view
-    }()
-
-    private let doneActionButton: UIButton = {
-        let view: UIButton = UIButton(type: .system)
-
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private let doneActionButton: UIButton = UIButton.initView(type: .system) { view in
         view.setTitle("settings.section.authentication.register".localized(), for: .normal)
         view.addTarget(self, action: #selector(switchDoneAction), for: .touchUpInside)
-
-        return view
-    }()
+    }
 
     private lazy var subTitleLabelToBottomOfTitleLabel: NSLayoutConstraint = self.subTitleLabel.topAnchor.constraint(
         equalTo: self.titleLabel.bottomAnchor,
@@ -119,6 +73,12 @@ class SettingsAuthenticationViewController: UIViewController {
         constant: 20
     )
 
+    // todo: get this piece of code out of the file
+    enum DoneActionType {
+        case login
+        case signUp
+    }
+    
     private var accountIdentification: AccountIdentification? = nil
     private var doneActionType: DoneActionType = .login
 
@@ -129,8 +89,8 @@ class SettingsAuthenticationViewController: UIViewController {
         self.isModalInPresentation = true
 
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
         self.navigationItem.largeTitleDisplayMode = .always
-
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneAction))
         self.navigationItem.rightBarButtonItem?.isEnabled = false
@@ -147,7 +107,6 @@ class SettingsAuthenticationViewController: UIViewController {
         self.view.addSubview(self.accountImage)
         self.view.addSubview(self.accountName)
         self.view.addSubview(self.fieldsView)
-
         self.view.addSubview(self.doneActionButton)
 
         NSLayoutConstraint.activate([
@@ -180,24 +139,16 @@ class SettingsAuthenticationViewController: UIViewController {
 
 extension SettingsAuthenticationViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var textField: UITextField? = nil
-        var text: String = ""
-
-        if (indexPath.row == 0) {
-            text = "settings.section.authentication.id".localized()
-            textField = self.emailField
-        } else if (indexPath.row == 1) {
-            text = "settings.section.authentication.password".localized()
-            textField = self.passwordField
-        }
-
-        let cell = SettingsAuthenticationFieldUITableViewCell.init(style: .value1, reuseIdentifier: "field", textField: textField, title: text)
-
-        if (indexPath.row == 0) {
-            cell.textLabel?.text = "settings.section.authentication.id".localized()
-        } else if (indexPath.row == 1) {
-            cell.textLabel?.text = "settings.section.authentication.password".localized()
-        }
+        let cell = SettingsAuthenticationFieldUITableViewCell.init(
+            style: .value1,
+            reuseIdentifier: "field",
+            textField: indexPath.row == 0
+                ? self.emailField
+                : self.passwordField,
+            title: indexPath.row == 0
+                ? "settings.section.authentication.id".localized()
+                : "settings.section.authentication.password".localized()
+        )
 
         cell.textLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4, weight: .bold)
         cell.selectionStyle = .none
@@ -252,57 +203,14 @@ extension SettingsAuthenticationViewController: QRCodeReaderViewControllerDelega
     }
 }
 
-// todo: get this piece of code out of the file
-struct APIResponse<T: Decodable>: Decodable {
-    let status: Bool
-    let data: T?
-    let error: APIError?
-}
-
-struct APIError: Decodable {
-    let code: Int
-    let message: String
-    let description: String
-}
-
-struct AuthenticationResult: Decodable {
-    let access: Token
-    let refresh: Token
-}
-
-struct Token: Decodable {
-    let token: String
-    let type: TokenType
-    let lifetime: Int
-    let createdAt: Int
-}
-
-enum TokenType: String, Decodable {
-    case refresh = "REFRESH"
-    case access = "ACCESS"
-}
-
 extension SettingsAuthenticationViewController {
     @objc
     private func doneAction() {
         if(!self.checkFields()) {
             print("bad fields")
         } else {
-            // todo: get this piece of code out of the file
-            AF.request(
-                "http://80.80.80.101:5000/authentication",
-                method: .put,
-                parameters: [
-                    "mail": self.emailField.text!,
-                    "password": self.passwordField.text!
-                ],
-                encoding: JSONEncoding.default,
-                headers: [
-                    "appToken": "6a16pg94wnr834gmosx39",
-                    "appSecret": "7viiuu2wkakandw2awvclp"
-                ]
-            ).responseDecodable(of: APIResponse<AuthenticationResult>.self) { result in
-                print(result.data!)
+            AF.request(.login(mail: "hello@whywelive.me", password: "12345678")) { result in
+                
             }
         }
     }
@@ -312,20 +220,16 @@ extension SettingsAuthenticationViewController {
         if (self.doneActionType == .signUp) {
             self.toggleActionType(signUp: false)
         } else {
-            let readerViewController: QRCodeReaderViewController = {
-                let builder = QRCodeReaderViewControllerBuilder {
-                    $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
+            let readerViewController: QRCodeReaderViewController = QRCodeReaderViewController(builder: QRCodeReaderViewControllerBuilder() {
+                $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
 
-                    $0.showTorchButton = false
-                    $0.showSwitchCameraButton = false
-                    $0.showCancelButton = false
-                    $0.showOverlayView = true
-                    $0.rectOfInterest = CGRect(x: 0.2, y: 0.2, width: 0.6, height: 0.6)
-                }
-
-                return QRCodeReaderViewController(builder: builder)
-            }()
-
+                $0.showTorchButton = false
+                $0.showSwitchCameraButton = false
+                $0.showCancelButton = false
+                $0.showOverlayView = true
+                $0.rectOfInterest = CGRect(x: 0.2, y: 0.2, width: 0.6, height: 0.6)
+            })
+            
             readerViewController.delegate = self
 
             self.navigationController?.present(readerViewController, animated: true)
@@ -337,6 +241,7 @@ extension SettingsAuthenticationViewController {
         self.dismiss(animated: true)
     }
 
+    // MARK: - refactor
     private func checkFields() -> Bool {
         // todo: check email
         // todo: check password
@@ -352,7 +257,6 @@ extension SettingsAuthenticationViewController {
         }
     }
 
-    // todo: refactor
     private func toggleActionType(signUp: Bool) {
         self.accountImage.isHidden = !signUp
         self.accountName.isHidden = !signUp
@@ -361,14 +265,14 @@ extension SettingsAuthenticationViewController {
         self.subTitleLabelToBottomOfAccountNameLabel.isActive = !signUp
         
         self.doneActionButton.setTitle(
-            signUp ?
-                "settings.section.authentication.login".localized()
+            signUp
+                ? "settings.section.authentication.login".localized()
                 : "settings.section.authentication.register".localized(),
             for: .normal
         )
         
-        self.subTitleLabel.text = signUp ?
-            "settings.section.authentication.register.description".localized()
+        self.subTitleLabel.text = signUp
+            ? "settings.section.authentication.register.description".localized()
             : "settings.section.authentication.login.description".localized()
         
         self.doneActionType = signUp ? .signUp : .login

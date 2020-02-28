@@ -102,30 +102,24 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = self.rows[indexPath.section].items[indexPath.row]
-        var cell: UITableViewCell? = nil
+        let cell: UITableViewCell = row.special == SettingsRow.Special.cellAuthentication
+            ? tableView.dequeueReusableCell(withIdentifier: "settings_authentication", for: indexPath)
+            : tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
 
-        if(row.special == SettingsRow.Special.cellAuthentication) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "settings_authentication", for: indexPath)
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = row.title
+
+        if let icon = row.icon {
+            cell.imageView?.image = UIImage(systemName: icon)?
+                .imageWithInsets(insets: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))?
+                .withTintColor(.white, renderingMode: .automatic)
         }
 
-        if let cell = cell {
-            cell.accessoryType = .disclosureIndicator
-            cell.textLabel?.text = row.title
+        cell.imageView?.backgroundColor = row.color
+        cell.imageView?.contentMode = .scaleAspectFit
+        cell.imageView?.layer.cornerRadius = 8
 
-            if let icon = row.icon {
-                cell.imageView?.image = UIImage(systemName: icon)?
-                    .imageWithInsets(insets: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))?
-                    .withTintColor(.white, renderingMode: .automatic)
-            }
-
-            cell.imageView?.backgroundColor = row.color
-            cell.imageView?.contentMode = .scaleAspectFit
-            cell.imageView?.layer.cornerRadius = 8
-        }
-
-        return cell!
+        return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

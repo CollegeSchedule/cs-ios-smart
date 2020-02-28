@@ -1,32 +1,23 @@
 import UIKit
 
 class SettingsAuthenticationTableViewCell: UITableViewCell {
-    private let titleText: UILabel = {
-        let view: UILabel = UILabel()
-
+    private let titleText: UILabel = UIView.initView() { view in
         view.numberOfLines = 1
         view.text = "settings.section.header.sign.in".localized()
         view.translatesAutoresizingMaskIntoConstraints = false
 
         view.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 2, weight: .bold)
         view.textColor = .systemPink
+    }
 
-        return view
-    }()
-
-    private let subTitleText: UILabel = {
-        let view: UILabel = UILabel()
-
+    private let subTitleText: UILabel = UIView.initView() { view in
         view.numberOfLines = 1
         view.text = "settings.section.header.sign.in.description".localized()
         view.translatesAutoresizingMaskIntoConstraints = false
 
         view.font = UIFont.preferredFont(forTextStyle: .caption1).withSize(UIFont.systemFontSize)
         view.textColor = .systemGray
-
-
-        return view
-    }()
+    }
 
     override init(style: CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -96,11 +96,9 @@ extension SettingsAppearanceViewController: UITableViewDelegate, UITableViewData
 
         let row = self.rows[indexPath.section].items[indexPath.row]
 
-        if(row.special! == SettingsRow.Special.appearanceLight) {
-            SettingsStore.instance.appearance = UIUserInterfaceStyle.light
-        } else if(row.special! == SettingsRow.Special.appearanceDark) {
-            SettingsStore.instance.appearance = UIUserInterfaceStyle.dark
-        }
+        SettingsStore.instance.appearance = (row.special! == SettingsRow.Special.appearanceLight)
+            ? UIUserInterfaceStyle.light
+            : UIUserInterfaceStyle.dark
 
         self.settingsView.cellForRow(at: self.lightIndexSet)?.accessoryType
             = (row.special! == SettingsRow.Special.appearanceLight) ? .checkmark : .none
@@ -140,7 +138,6 @@ extension SettingsAppearanceViewController {
     private func addSwitchSelection() {
         self.rows.append(contentsOf: [self.switchSection])
         self.settingsView.insertSections(IndexSet(integer: 1), with: .fade)
-
     }
 
     private func removeSwitchSelection() {
