@@ -354,61 +354,25 @@ extension SettingsAuthenticationViewController {
 
     // todo: refactor
     private func toggleActionType(signUp: Bool) {
-        if(signUp) {
-            self.accountImage.isHidden = false
-            self.accountName.isHidden = false
-
-            self.subTitleLabelToBottomOfTitleLabel.isActive = false
-            self.subTitleLabelToBottomOfAccountNameLabel.isActive = true
-            self.doneActionButton.setTitle("settings.section.authentication.login".localized(), for: .normal)
-            self.subTitleLabel.text = "settings.section.authentication.register.description".localized()
-            self.doneActionType = .signUp
-        } else {
-            self.accountImage.isHidden = true
-            self.accountName.isHidden = true
-
-            self.subTitleLabelToBottomOfAccountNameLabel.isActive = false
-            self.subTitleLabelToBottomOfTitleLabel.isActive = true
-            self.doneActionButton.setTitle("settings.section.authentication.register".localized(), for: .normal)
-            self.subTitleLabel.text = "settings.section.authentication.login.description".localized()
-            self.doneActionType = .login
-        }
+        self.accountImage.isHidden = !signUp
+        self.accountName.isHidden = !signUp
+        
+        self.subTitleLabelToBottomOfTitleLabel.isActive = !signUp
+        self.subTitleLabelToBottomOfAccountNameLabel.isActive = !signUp
+        
+        self.doneActionButton.setTitle(
+            signUp ?
+                "settings.section.authentication.login".localized()
+                : "settings.section.authentication.register".localized(),
+            for: .normal
+        )
+        
+        self.subTitleLabel.text = signUp ?
+            "settings.section.authentication.register.description".localized()
+            : "settings.section.authentication.login.description".localized()
+        
+        self.doneActionType = signUp ? .signUp : .login
     }
 }
 
-class SettingsAuthenticationFieldUITableViewCell: UITableViewCell {
-    private var textField: UITextField? = nil
 
-    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, textField: UITextField?, title: String) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        self.textLabel?.text = title
-        self.textField = textField
-
-        if let textField = self.textField {
-            self.contentView.addSubview(textField)
-
-            NSLayoutConstraint.activate([
-                textField.topAnchor.constraint(lessThanOrEqualTo: self.contentView.topAnchor),
-                textField.bottomAnchor.constraint(lessThanOrEqualTo: self.contentView.bottomAnchor),
-                textField.leadingAnchor.constraint(equalTo: self.textLabel!.trailingAnchor, constant: 10),
-                textField.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-                textField.heightAnchor.constraint(equalTo: self.contentView.heightAnchor)
-            ])
-        }
-    }
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        self.textLabel?.frame.size.width = 90
-    }
-}

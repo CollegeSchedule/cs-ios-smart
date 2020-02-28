@@ -13,6 +13,7 @@
 		6502E58E23DC3AEA0088E09E /* SettingsStoreObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6502E58D23DC3AEA0088E09E /* SettingsStoreObject.swift */; };
 		6502E59023DD67B80088E09E /* SettingsAuthenticationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6502E58F23DD67B80088E09E /* SettingsAuthenticationTableViewCell.swift */; };
 		654CCD0A23DDEE4300E62728 /* SettingsAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654CCD0923DDEE4300E62728 /* SettingsAuthenticationViewController.swift */; };
+		657B57652408DC750041B127 /* SettingsAuthenticationFieldUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B57642408DC750041B127 /* SettingsAuthenticationFieldUITableViewCell.swift */; };
 		65B3733123D976E10095D8B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B3733023D976E10095D8B6 /* AppDelegate.swift */; };
 		65B3733323D976E10095D8B6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B3733223D976E10095D8B6 /* SceneDelegate.swift */; };
 		65B3733A23D976E40095D8B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65B3733923D976E40095D8B6 /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 		6502E58D23DC3AEA0088E09E /* SettingsStoreObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreObject.swift; sourceTree = "<group>"; };
 		6502E58F23DD67B80088E09E /* SettingsAuthenticationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsAuthenticationTableViewCell.swift; path = CollegeSchedule/Objects/SettingsAuthenticationTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		654CCD0923DDEE4300E62728 /* SettingsAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsAuthenticationViewController.swift; path = CollegeSchedule/Objects/SettingsAuthenticationViewController.swift; sourceTree = SOURCE_ROOT; };
+		657B57642408DC750041B127 /* SettingsAuthenticationFieldUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAuthenticationFieldUITableViewCell.swift; sourceTree = "<group>"; };
 		65B3732D23D976E10095D8B6 /* CollegeSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollegeSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B3733023D976E10095D8B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65B3733223D976E10095D8B6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			children = (
 				6502E58F23DD67B80088E09E /* SettingsAuthenticationTableViewCell.swift */,
 				654CCD0923DDEE4300E62728 /* SettingsAuthenticationViewController.swift */,
+				657B57642408DC750041B127 /* SettingsAuthenticationFieldUITableViewCell.swift */,
 			);
 			name = Authentication;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				6502E58B23DC13940088E09E /* SettingsAppearanceViewController.swift in Sources */,
 				65B3733123D976E10095D8B6 /* AppDelegate.swift in Sources */,
 				84D4862E23DAE956007ACF8F /* String.swift in Sources */,
+				657B57652408DC750041B127 /* SettingsAuthenticationFieldUITableViewCell.swift in Sources */,
 				65B3733323D976E10095D8B6 /* SceneDelegate.swift in Sources */,
 				F0EE787AE6DAAA63FA8086B9 /* UIApplication.swift in Sources */,
 				F0EE79DDAE7A1C9E862B8856 /* UIView.swift in Sources */,
