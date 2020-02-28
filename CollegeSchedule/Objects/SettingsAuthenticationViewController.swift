@@ -1,8 +1,10 @@
 import UIKit
 import AVFoundation
 import QRCodeReader
+import Alamofire
 
 class SettingsAuthenticationViewController: UIViewController {
+    // todo: get this piece of code out of the file
     enum DoneActionType {
         case login
         case signUp
@@ -148,7 +150,6 @@ class SettingsAuthenticationViewController: UIViewController {
 
         self.view.addSubview(self.doneActionButton)
 
-
         NSLayoutConstraint.activate([
             self.titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
             self.titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
@@ -251,14 +252,58 @@ extension SettingsAuthenticationViewController: QRCodeReaderViewControllerDelega
     }
 }
 
+// todo: get this piece of code out of the file
+struct APIResponse<T: Decodable>: Decodable {
+    let status: Bool
+    let data: T?
+    let error: APIError?
+}
+
+struct APIError: Decodable {
+    let code: Int
+    let message: String
+    let description: String
+}
+
+struct AuthenticationResult: Decodable {
+    let access: Token
+    let refresh: Token
+}
+
+struct Token: Decodable {
+    let token: String
+    let type: TokenType
+    let lifetime: Int
+    let createdAt: Int
+}
+
+enum TokenType: String, Decodable {
+    case refresh = "REFRESH"
+    case access = "ACCESS"
+}
+
 extension SettingsAuthenticationViewController {
     @objc
     private func doneAction() {
         if(!self.checkFields()) {
             print("bad fields")
         } else {
-            // api request
-            // loading view
+            // todo: get this piece of code out of the file
+            AF.request(
+                "http://80.80.80.101:5000/authentication",
+                method: .put,
+                parameters: [
+                    "mail": self.emailField.text!,
+                    "password": self.passwordField.text!
+                ],
+                encoding: JSONEncoding.default,
+                headers: [
+                    "appToken": "6a16pg94wnr834gmosx39",
+                    "appSecret": "7viiuu2wkakandw2awvclp"
+                ]
+            ).responseDecodable(of: APIResponse<AuthenticationResult>.self) { result in
+                print(result.data!)
+            }
         }
     }
 
@@ -307,6 +352,7 @@ extension SettingsAuthenticationViewController {
         }
     }
 
+    // todo: refactor
     private func toggleActionType(signUp: Bool) {
         if(signUp) {
             self.accountImage.isHidden = false
