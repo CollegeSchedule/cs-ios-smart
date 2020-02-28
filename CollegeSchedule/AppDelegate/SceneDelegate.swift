@@ -5,14 +5,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
         let tabController: UITabBarController = UITabBarController()
 
         //
         // MARK: - First view
         //
-        let todayView: some View = TodayView().environment(\.managedObjectContext, context)
+        let todayView: some View = TodayView()
         let todayHostingController: UIHostingController = UIHostingController(rootView: todayView)
         let todayNavigationController: UINavigationController = UINavigationController(
                 rootViewController: todayHostingController
@@ -25,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //
         // MARK: - Second view
         //
-        let searchView: some View = SearchView().environment(\.managedObjectContext, context)
+        let searchView: some View = SearchView()
         let searchHostingController: UIHostingController = UIHostingController(rootView: searchView)
         let searchNavigationController: UINavigationController = UINavigationController(
                 rootViewController: searchHostingController
@@ -39,8 +37,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //
         // MARK: - Third view
         //
-        //let settingsView: some View = SettingsView().environment(\.managedObjectContext, context)
-        //let settingsHostingController: UIHostingController = UIHostingController(rootView: settingsView)
         let settingsHostingController: SettingsViewController = SettingsViewController()
         let settingsNavigationController: UINavigationController = UINavigationController(
                 rootViewController: settingsHostingController
@@ -63,10 +59,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.window!.overrideUserInterfaceStyle = SettingsStore.instance.appearance
             }
 
-            UINavigationBar.appearance().tintColor = .systemPink
-            UITableViewCell.appearance().tintColor = .systemPink
-            UITabBar.appearance().tintColor = .systemPink
-            UIButton.appearance().tintColor = .systemPink
+            UIView.appearance().tintColor = .systemPink
+            
+//            UINavigationBar.appearance().tintColor = .systemPink
+//            UITableViewCell.appearance().tintColor = .systemPink
+//            UITabBar.appearance().tintColor = .systemPink
+//            UIButton.appearance().tintColor = .systemPink
             
             self.window!.rootViewController = tabController
             self.window!.makeKeyAndVisible()
@@ -77,10 +75,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if(!SettingsStore.instance.isAppearanceAutomatically) {
             self.window?.overrideUserInterfaceStyle = SettingsStore.instance.appearance
         }
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 }
 
