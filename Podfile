@@ -8,6 +8,7 @@ target 'CollegeSchedule' do
 
   # Pods for CollegeSchedule
   pod "QRCodeReader.swift"
-  pod "RealmSwift"
+  pod 'KVKCalendar'
+#  pod "RealmSwift"
   pod 'Alamofire', '~> 5.0'
 end

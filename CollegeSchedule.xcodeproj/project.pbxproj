@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6502E57623D9B9090088E09E /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE7F39406885D0E3F5CD68 /* TodayView.swift */; };
+		65012079241D4D89005B95B9 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65012078241D4D89005B95B9 /* TodayViewController.swift */; };
+		6501207B241D4E8E005B95B9 /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6501207A241D4E8E005B95B9 /* UISegmentedControl.swift */; };
+		6501207D241D536B005B95B9 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 6501207C241D536B005B95B9 /* events.json */; };
+		6501207F241D53B2005B95B9 /* EventViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6501207E241D53B2005B95B9 /* EventViewer.swift */; };
 		6502E57723D9B9090088E09E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE765CC449748D5C480769 /* SearchView.swift */; };
 		6502E58E23DC3AEA0088E09E /* SettingsStoreObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6502E58D23DC3AEA0088E09E /* SettingsStoreObject.swift */; };
 		657B57732408F6520041B127 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B57722408F49E0041B127 /* SettingsViewController.swift */; };
@@ -24,11 +27,13 @@
 		657B578F240904880041B127 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B578E240904880041B127 /* Error.swift */; };
 		657B579124090C5E0041B127 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B579024090C5E0041B127 /* Authentication.swift */; };
 		657B5793240913AB0041B127 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B5792240913AB0041B127 /* UIButton.swift */; };
+		657B57952409799D0041B127 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B57942409799D0041B127 /* Auth.swift */; };
 		65B3733123D976E10095D8B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B3733023D976E10095D8B6 /* AppDelegate.swift */; };
 		65B3733323D976E10095D8B6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B3733223D976E10095D8B6 /* SceneDelegate.swift */; };
 		65B3733A23D976E40095D8B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65B3733923D976E40095D8B6 /* Assets.xcassets */; };
 		65B3733D23D976E40095D8B6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65B3733C23D976E40095D8B6 /* Preview Assets.xcassets */; };
 		65E411BE24068524002E8ABB /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		65EC0AD024339A27008AADDC /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC0ACF24339A27008AADDC /* ScheduleViewController.swift */; };
 		65FA564E23F7DE3500EE546A /* AccountIdentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FA564D23F7DE3500EE546A /* AccountIdentification.swift */; };
 		84D4862A23DAE7F9007ACF8F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84D4862823DAE7F9007ACF8F /* Localizable.strings */; };
 		84D4862E23DAE956007ACF8F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D4862D23DAE956007ACF8F /* String.swift */; };
@@ -65,6 +70,10 @@
 /* Begin PBXFileReference section */
 		15B3D061CD5A0C9E138BF925 /* libPods-CollegeSchedule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CollegeSchedule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CDC59A179BA18B7B05FBCC6 /* Pods-CollegeSchedule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CollegeSchedule.release.xcconfig"; path = "Target Support Files/Pods-CollegeSchedule/Pods-CollegeSchedule.release.xcconfig"; sourceTree = "<group>"; };
+		65012078241D4D89005B95B9 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		6501207A241D4E8E005B95B9 /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
+		6501207C241D536B005B95B9 /* events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
+		6501207E241D53B2005B95B9 /* EventViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewer.swift; sourceTree = "<group>"; };
 		6502E58D23DC3AEA0088E09E /* SettingsStoreObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreObject.swift; sourceTree = "<group>"; };
 		657B57682408F49E0041B127 /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
 		657B576A2408F49E0041B127 /* SettingsAboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAboutViewController.swift; sourceTree = "<group>"; };
@@ -80,12 +89,14 @@
 		657B578E240904880041B127 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		657B579024090C5E0041B127 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		657B5792240913AB0041B127 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		657B57942409799D0041B127 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		65B3732D23D976E10095D8B6 /* CollegeSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollegeSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B3733023D976E10095D8B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65B3733223D976E10095D8B6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		65B3733923D976E40095D8B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65B3733C23D976E40095D8B6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		65B3734123D976E40095D8B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65EC0ACF24339A27008AADDC /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		65FA564D23F7DE3500EE546A /* AccountIdentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountIdentification.swift; sourceTree = "<group>"; };
 		7444144D2E7FB53C50DC56DD /* Pods-CollegeSchedule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CollegeSchedule.debug.xcconfig"; path = "Target Support Files/Pods-CollegeSchedule/Pods-CollegeSchedule.debug.xcconfig"; sourceTree = "<group>"; };
 		84D4862923DAE7F9007ACF8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = CollegeSchedule/AppDelegate/Base.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
@@ -95,7 +106,6 @@
 		B181C40E26271FF451525B74 /* Pods_CollegeSchedule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CollegeSchedule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EE765CC449748D5C480769 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		F0EE7707D18C935D15CFDD48 /* UIApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
-		F0EE7F39406885D0E3F5CD68 /* TodayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		F0EE7FE7E6FCCD26CE1A515E /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,6 +198,7 @@
 		657B577E2408FD5D0041B127 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				657B578A240903A50041B127 /* EndPoint.swift */,
 				657B578C240904410041B127 /* Response.swift */,
 				657B578E240904880041B127 /* Error.swift */,
 			);
@@ -197,7 +208,7 @@
 		657B57802408FD5D0041B127 /* Layer */ = {
 			isa = PBXGroup;
 			children = (
-				657B578A240903A50041B127 /* EndPoint.swift */,
+				657B57942409799D0041B127 /* Auth.swift */,
 			);
 			path = Layer;
 			sourceTree = "<group>";
@@ -242,6 +253,8 @@
 				65B3733B23D976E40095D8B6 /* Preview Content */,
 				65B3733923D976E40095D8B6 /* Assets.xcassets */,
 				65B3734123D976E40095D8B6 /* Info.plist */,
+				6501207C241D536B005B95B9 /* events.json */,
+				6501207E241D53B2005B95B9 /* EventViewer.swift */,
 			);
 			path = CollegeSchedule;
 			sourceTree = "<group>";
@@ -252,6 +265,14 @@
 				65B3733C23D976E40095D8B6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		65EC0ACC2433996C008AADDC /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				65EC0ACF24339A27008AADDC /* ScheduleViewController.swift */,
+			);
+			path = Schedule;
 			sourceTree = "<group>";
 		};
 		65FA564C23F7DE2300EE546A /* Models */ = {
@@ -296,6 +317,7 @@
 				F0EE7FE7E6FCCD26CE1A515E /* UIView.swift */,
 				657B5788240902630041B127 /* UITableView.swift */,
 				657B5792240913AB0041B127 /* UIButton.swift */,
+				6501207A241D4E8E005B95B9 /* UISegmentedControl.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -311,7 +333,7 @@
 		F0EE70E0973036C1D4E4AAD3 /* Today */ = {
 			isa = PBXGroup;
 			children = (
-				F0EE7F39406885D0E3F5CD68 /* TodayView.swift */,
+				65012078241D4D89005B95B9 /* TodayViewController.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -328,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				F0EE70E0973036C1D4E4AAD3 /* Today */,
+				65EC0ACC2433996C008AADDC /* Schedule */,
 				F0EE7299ACBCC56E5408EC9D /* Search */,
 				657B57672408F49E0041B127 /* Settings */,
 			);
@@ -396,6 +419,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6501207D241D536B005B95B9 /* events.json in Resources */,
 				65B3733D23D976E40095D8B6 /* Preview Assets.xcassets in Resources */,
 				84D4862A23DAE7F9007ACF8F /* Localizable.strings in Resources */,
 				65B3733A23D976E40095D8B6 /* Assets.xcassets in Resources */,
@@ -434,13 +458,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6502E57623D9B9090088E09E /* TodayView.swift in Sources */,
 				657B57782408F65F0041B127 /* SettingsAppearanceViewController.swift in Sources */,
 				657B57772408F65D0041B127 /* SettingsAuthenticationTableViewCell.swift in Sources */,
 				657B57762408F65A0041B127 /* SettingsAuthenticationViewController.swift in Sources */,
 				6502E58E23DC3AEA0088E09E /* SettingsStoreObject.swift in Sources */,
+				657B57952409799D0041B127 /* Auth.swift in Sources */,
 				657B57732408F6520041B127 /* SettingsViewController.swift in Sources */,
 				657B577A2408F6640041B127 /* SettingsSection.swift in Sources */,
+				6501207F241D53B2005B95B9 /* EventViewer.swift in Sources */,
 				84D4863723DAF626007ACF8F /* UIImage.swift in Sources */,
 				657B579124090C5E0041B127 /* Authentication.swift in Sources */,
 				65FA564E23F7DE3500EE546A /* AccountIdentification.swift in Sources */,
@@ -452,7 +477,10 @@
 				657B578D240904410041B127 /* Response.swift in Sources */,
 				657B578F240904880041B127 /* Error.swift in Sources */,
 				657B57792408F6610041B127 /* SettingsAboutViewController.swift in Sources */,
+				65EC0AD024339A27008AADDC /* ScheduleViewController.swift in Sources */,
+				6501207B241D4E8E005B95B9 /* UISegmentedControl.swift in Sources */,
 				657B578B240903A50041B127 /* EndPoint.swift in Sources */,
+				65012079241D4D89005B95B9 /* TodayViewController.swift in Sources */,
 				65B3733123D976E10095D8B6 /* AppDelegate.swift in Sources */,
 				84D4862E23DAE956007ACF8F /* String.swift in Sources */,
 				65B3733323D976E10095D8B6 /* SceneDelegate.swift in Sources */,

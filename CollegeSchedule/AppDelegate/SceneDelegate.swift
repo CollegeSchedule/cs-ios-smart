@@ -10,8 +10,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //
         // MARK: - First view
         //
-        let todayView: some View = TodayView()
-        let todayHostingController: UIHostingController = UIHostingController(rootView: todayView)
+        let todayHostingController: TodayViewController = TodayViewController()
         let todayNavigationController: UINavigationController = UINavigationController(
                 rootViewController: todayHostingController
         )
@@ -22,6 +21,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         //
         // MARK: - Second view
+        //
+        
+        let scheduleHostingController: ScheduleViewController = ScheduleViewController()
+        let scheduleNavigationController: UINavigationController = UINavigationController(
+                rootViewController: scheduleHostingController
+        )
+        
+        scheduleHostingController.title = "Schedule"
+        scheduleHostingController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+        scheduleNavigationController.navigationBar.prefersLargeTitles = true
+        
+        //
+        // MARK: - Third view
         //
         let searchView: some View = SearchView()
         let searchHostingController: UIHostingController = UIHostingController(rootView: searchView)
@@ -35,21 +47,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         searchNavigationController.navigationBar.prefersLargeTitles = true
 
         //
-        // MARK: - Third view
+        // MARK: - Fourth view
         //
-        let settingsHostingController: SettingsViewController = SettingsViewController()
-        let settingsNavigationController: UINavigationController = UINavigationController(
-                rootViewController: settingsHostingController
-        )
-
-        settingsHostingController.title = "Settings"
-        settingsHostingController.tabBarItem.image = UIImage(systemName: "gear")
-        settingsNavigationController.navigationBar.prefersLargeTitles = true
-
+        let settingsMasterViewController: SettingsViewController = SettingsViewController()
+        let settingsMasterNavigationController: UINavigationController = UINavigationController(rootViewController: settingsMasterViewController)
+        
+        let settingsDetailViewController: SettingsAppearanceViewController = SettingsAppearanceViewController()
+        let settingsDetailNavigationController: UINavigationController = UINavigationController(rootViewController: settingsDetailViewController)
+        
+        let splitViewController: UISplitViewController = UISplitViewController()
+        
+        splitViewController.viewControllers = [settingsMasterNavigationController, settingsDetailNavigationController]
+//        splitViewController.preferredDisplayMode = .allVisible
+        splitViewController.tabBarItem.image = UIImage(systemName: "gear")
+        splitViewController.title = "Settings"
+        splitViewController.delegate = self
+        
+        settingsMasterViewController.navigationController?.navigationBar.prefersLargeTitles = true
+        settingsMasterViewController.title = "Settings"
+        
+        settingsDetailViewController.title = "Appearance"
+        
         tabController.viewControllers = [
             todayNavigationController,
+            scheduleNavigationController,
             searchNavigationController,
-            settingsNavigationController
+            splitViewController
         ]
 
         if let windowScene = scene as? UIWindowScene {
@@ -58,13 +81,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             if(!SettingsStore.instance.isAppearanceAutomatically) {
                 self.window!.overrideUserInterfaceStyle = SettingsStore.instance.appearance
             }
-
-            UIView.appearance().tintColor = .systemPink
-            
-//            UINavigationBar.appearance().tintColor = .systemPink
-//            UITableViewCell.appearance().tintColor = .systemPink
-//            UITabBar.appearance().tintColor = .systemPink
-//            UIButton.appearance().tintColor = .systemPink
+                    
+            UINavigationBar.appearance().tintColor = .systemPink
+            UITableViewCell.appearance().tintColor = .systemPink
+            UITabBar.appearance().tintColor = .systemPink
+            UIButton.appearance().tintColor = .systemPink
             
             self.window!.rootViewController = tabController
             self.window!.makeKeyAndVisible()
@@ -78,3 +99,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+extension SceneDelegate: UISplitViewControllerDelegate {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
+    }
+}

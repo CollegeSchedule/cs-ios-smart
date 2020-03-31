@@ -189,7 +189,13 @@ extension SettingsAuthenticationViewController: QRCodeReaderViewControllerDelega
 
         self.accountIdentification = AccountIdentification(id: Int(result[1]) ?? 0, token: String(result[2]))
 
-        // todo: API request
+        AF.request(.info(id: self.accountIdentification!.id, token: self.accountIdentification!.token)) { result in
+            if(result.status) {
+                print(result.data!.id)
+            } else {
+                
+            }
+        }
 
         self.toggleActionType(signUp: true)
 
@@ -209,8 +215,13 @@ extension SettingsAuthenticationViewController {
         if(!self.checkFields()) {
             print("bad fields")
         } else {
-            AF.request(.login(mail: "hello@whywelive.me", password: "12345678")) { result in
-                
+            AF.request(.login(mail: self.emailField.text!, password: self.passwordField.text!)) { result in
+                if(result.status) {
+                    print("ACCESS: \(result.data?.access.token ?? "Nothing")")
+                    print("REFRESH: \(result.data?.refresh.token ?? "Nothing")")
+                } else {
+                    print("ERROR: \(result.error?.message ?? "")")
+                }
             }
         }
     }
@@ -262,7 +273,7 @@ extension SettingsAuthenticationViewController {
         self.accountName.isHidden = !signUp
         
         self.subTitleLabelToBottomOfTitleLabel.isActive = !signUp
-        self.subTitleLabelToBottomOfAccountNameLabel.isActive = !signUp
+        self.subTitleLabelToBottomOfAccountNameLabel.isActive = signUp
         
         self.doneActionButton.setTitle(
             signUp

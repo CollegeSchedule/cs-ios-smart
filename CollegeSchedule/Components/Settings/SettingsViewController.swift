@@ -138,7 +138,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         } else if let action = row.action {
             action()
         }
-
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -162,7 +162,8 @@ extension SettingsViewController {
                 self.navigationController?.present(destination, animated: true)
                 break;
             case .push:
-                self.navigationController?.pushViewController(destination, animated: true)
+                //self.navigationController?.pushViewController(destination, animated: true)
+                self.splitViewController?.showDetailViewController(UINavigationController(rootViewController: destination), sender: nil)
                 break;
         }
     }
