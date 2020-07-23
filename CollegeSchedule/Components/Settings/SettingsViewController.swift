@@ -2,7 +2,7 @@ import UIKit
 import SwiftUI
 
 class SettingsViewController: UIViewController {
-    private let settingsView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
+    private let settingsView: UITableView = UITableView(frame: .zero, style: .insetGrouped) 
 
     private let rows: [SettingsSection] = [
         SettingsSection(

@@ -15,8 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 rootViewController: todayHostingController
         )
 
-        todayHostingController.title = "Today"
-        todayHostingController.tabBarItem.image = UIImage(systemName: "house.fill")
+        todayHostingController.title = "today.title".localized()
+        todayHostingController.tabBarItem.image = UIImage(systemName: "house")
         todayNavigationController.navigationBar.prefersLargeTitles = true
 
         //
@@ -28,8 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 rootViewController: scheduleHostingController
         )
         
-        scheduleHostingController.title = "Schedule"
-        scheduleHostingController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+        scheduleHostingController.title = "schedule.title".localized()
+        scheduleHostingController.tabBarItem.image = UIImage(systemName: "alarm")
         scheduleNavigationController.navigationBar.prefersLargeTitles = true
         
         //
@@ -41,7 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 rootViewController: searchHostingController
         )
         
-        searchHostingController.title = "Search"
+        searchHostingController.title = "search.title".localized()
         searchHostingController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
         searchHostingController.navigationItem.searchController = UISearchController(searchResultsController: nil)
         searchNavigationController.navigationBar.prefersLargeTitles = true
@@ -60,13 +60,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         splitViewController.viewControllers = [settingsMasterNavigationController, settingsDetailNavigationController]
 //        splitViewController.preferredDisplayMode = .allVisible
         splitViewController.tabBarItem.image = UIImage(systemName: "gear")
-        splitViewController.title = "Settings"
+        splitViewController.title = "settings.title".localized()
         splitViewController.delegate = self
         
         settingsMasterViewController.navigationController?.navigationBar.prefersLargeTitles = true
-        settingsMasterViewController.title = "Settings"
+        settingsMasterViewController.title = "settings.title".localized()
         
-        settingsDetailViewController.title = "Appearance"
+        settingsDetailViewController.title = "settings.section.app.appearance".localized()
         
         tabController.viewControllers = [
             todayNavigationController,

@@ -13,6 +13,7 @@
 		6501207F241D53B2005B95B9 /* EventViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6501207E241D53B2005B95B9 /* EventViewer.swift */; };
 		6502E57723D9B9090088E09E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE765CC449748D5C480769 /* SearchView.swift */; };
 		6502E58E23DC3AEA0088E09E /* SettingsStoreObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6502E58D23DC3AEA0088E09E /* SettingsStoreObject.swift */; };
+		654A58322440EA0300888425 /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654A58312440EA0300888425 /* UICollectionView.swift */; };
 		657B57732408F6520041B127 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B57722408F49E0041B127 /* SettingsViewController.swift */; };
 		657B57742408F6550041B127 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B57712408F49E0041B127 /* SettingsRow.swift */; };
 		657B57752408F6580041B127 /* SettingsAuthenticationFieldUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B57702408F49E0041B127 /* SettingsAuthenticationFieldUITableViewCell.swift */; };
@@ -32,6 +33,7 @@
 		65B3733323D976E10095D8B6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B3733223D976E10095D8B6 /* SceneDelegate.swift */; };
 		65B3733A23D976E40095D8B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65B3733923D976E40095D8B6 /* Assets.xcassets */; };
 		65B3733D23D976E40095D8B6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65B3733C23D976E40095D8B6 /* Preview Assets.xcassets */; };
+		65CCE4E6244303D600759375 /* TodayCardUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CCE4E5244303D600759375 /* TodayCardUITableViewCell.swift */; };
 		65E411BE24068524002E8ABB /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65EC0AD024339A27008AADDC /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC0ACF24339A27008AADDC /* ScheduleViewController.swift */; };
 		65FA564E23F7DE3500EE546A /* AccountIdentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FA564D23F7DE3500EE546A /* AccountIdentification.swift */; };
@@ -75,6 +77,7 @@
 		6501207C241D536B005B95B9 /* events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		6501207E241D53B2005B95B9 /* EventViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewer.swift; sourceTree = "<group>"; };
 		6502E58D23DC3AEA0088E09E /* SettingsStoreObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreObject.swift; sourceTree = "<group>"; };
+		654A58312440EA0300888425 /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
 		657B57682408F49E0041B127 /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
 		657B576A2408F49E0041B127 /* SettingsAboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAboutViewController.swift; sourceTree = "<group>"; };
 		657B576C2408F49E0041B127 /* SettingsAppearanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 		65B3733923D976E40095D8B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65B3733C23D976E40095D8B6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		65B3734123D976E40095D8B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65CCE4E5244303D600759375 /* TodayCardUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCardUITableViewCell.swift; sourceTree = "<group>"; };
 		65EC0ACF24339A27008AADDC /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		65FA564D23F7DE3500EE546A /* AccountIdentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountIdentification.swift; sourceTree = "<group>"; };
 		7444144D2E7FB53C50DC56DD /* Pods-CollegeSchedule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CollegeSchedule.debug.xcconfig"; path = "Target Support Files/Pods-CollegeSchedule/Pods-CollegeSchedule.debug.xcconfig"; sourceTree = "<group>"; };
@@ -318,6 +322,7 @@
 				657B5788240902630041B127 /* UITableView.swift */,
 				657B5792240913AB0041B127 /* UIButton.swift */,
 				6501207A241D4E8E005B95B9 /* UISegmentedControl.swift */,
+				654A58312440EA0300888425 /* UICollectionView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				65012078241D4D89005B95B9 /* TodayViewController.swift */,
+				65CCE4E5244303D600759375 /* TodayCardUITableViewCell.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -365,11 +371,11 @@
 			buildConfigurationList = 65B3734423D976E40095D8B6 /* Build configuration list for PBXNativeTarget "CollegeSchedule" */;
 			buildPhases = (
 				8702A39235D426E611CCC625 /* [CP] Check Pods Manifest.lock */,
+				65E411BF24068524002E8ABB /* Embed Frameworks */,
 				65B3732923D976E10095D8B6 /* Sources */,
 				65B3732A23D976E10095D8B6 /* Frameworks */,
 				65B3732B23D976E10095D8B6 /* Resources */,
 				6598199F23F802EF00FBC390 /* Embed Watch Content */,
-				65E411BF24068524002E8ABB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -479,9 +485,11 @@
 				657B57792408F6610041B127 /* SettingsAboutViewController.swift in Sources */,
 				65EC0AD024339A27008AADDC /* ScheduleViewController.swift in Sources */,
 				6501207B241D4E8E005B95B9 /* UISegmentedControl.swift in Sources */,
+				654A58322440EA0300888425 /* UICollectionView.swift in Sources */,
 				657B578B240903A50041B127 /* EndPoint.swift in Sources */,
 				65012079241D4D89005B95B9 /* TodayViewController.swift in Sources */,
 				65B3733123D976E10095D8B6 /* AppDelegate.swift in Sources */,
+				65CCE4E6244303D600759375 /* TodayCardUITableViewCell.swift in Sources */,
 				84D4862E23DAE956007ACF8F /* String.swift in Sources */,
 				65B3733323D976E10095D8B6 /* SceneDelegate.swift in Sources */,
 				F0EE787AE6DAAA63FA8086B9 /* UIApplication.swift in Sources */,

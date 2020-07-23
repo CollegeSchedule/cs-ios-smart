@@ -1,24 +1,34 @@
 PODS:
-  - Alamofire (5.0.2)
-  - KVKCalendar (0.2.7)
+  - Alamofire (5.1.0)
+  - KVKCalendar (0.2.8)
   - QRCodeReader.swift (10.1.0)
+  - Realm (4.4.0):
+    - Realm/Headers (= 4.4.0)
+  - Realm/Headers (4.4.0)
+  - RealmSwift (4.4.0):
+    - Realm (= 4.4.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0)
   - KVKCalendar
   - QRCodeReader.swift
+  - RealmSwift
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - KVKCalendar
     - QRCodeReader.swift
+    - Realm
+    - RealmSwift
 
 SPEC CHECKSUMS:
-  Alamofire: 3ba7a4db18b4f62c4a1c0e1cb39d7f3d52e10ada
-  KVKCalendar: 9e9bd8e93eae15face4af2b571bcb222cb9ae521
+  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
+  KVKCalendar: 9d7c72e9cee36192076121867a8aba8ecbc81b7a
   QRCodeReader.swift: 373a389fe9a22d513c879a32a6f647c58f4ef572
+  Realm: e125f464884cda953ebefe70c671b75b03b81b9b
+  RealmSwift: 33656a42bd300959a081fc13347376bc478071af
 
-PODFILE CHECKSUM: 65b69dc28373ba127f59c9bf0fc6e7f446df6892
+PODFILE CHECKSUM: c8dc5d69916cb15dd06015d280ee99623f827147
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.9.1

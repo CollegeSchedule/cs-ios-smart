@@ -1,39 +1,39 @@
-"general.next" = "Next";
-"general.done" = "Done";
-"general.cancel" = "Cancel";
+"general.next" = "Далее";
+"general.done" = "Готово";
+"general.cancel" = "Отменить";
 
-"today.title" = "Today";
+"today.title" = "Сегодня";
 
-"groups.title" = "Groups";
+"schedule.title" = "Расписание";
 
-"teachers.title" = "Teachers";
+"search.title" = "Поиск";
 
-"settings.title" = "Settings";
+"settings.title" = "Настройки";
 "settings.section.header.sign.in" = "Sign in with the College ID";
 "settings.section.header.sign.in.description" = "Sign in to access all the features.";
 "settings.section.authentication.id" = "College ID";
-"settings.section.authentication.password" = "Password";
-"settings.section.authentication.enter.id" = "Enter your College ID";
-"settings.section.authentication.enter.password" = "Enter your password";
-"settings.section.authentication.login" = "Already have an College ID?";
+"settings.section.authentication.password" = "Пароль";
+"settings.section.authentication.enter.id" = "Введите Ваш ID";
+"settings.section.authentication.enter.password" = "Введите Ваш пароль";
+"settings.section.authentication.login" = "Уже есть College ID?";
 "settings.section.authentication.login.description" = "Sign in with the College ID to use all the features of application.";
 "settings.section.authentication.register" = "Don't have an College ID or forgot it?";
 "settings.section.authentication.register.description" = "Sign up with the College ID to use all the features of application.";
-"settings.section.app.appearance" = "Appearance";
-"settings.section.app.appearance.title" = "Appearance";
-"settings.section.app.appearance.toggle.header" = "LIGHT & DARK MODE";
-"settings.section.app.appearance.toggle.footer" = "When the switch is on, the system appearance is used.";
-"settings.section.app.appearance.toggle.title" = "Appearance";
-"settings.section.app.appearance.switch.light" = "Always Light";
-"settings.section.app.appearance.switch.dark" = "Always Dark";
-"settings.section.app.appearance.switch.footer" = "The selected appearance will be used. System appearance is ignored.";
-"settings.section.app.language" = "Language";
-"settings.section.feedback.title" = "Feedback";
-"settings.section.feedback.write.review" = "Write a Review";
-"settings.section.feedback.contact.developer" = "Contact the Developer";
-"settings.section.feedback.site" = "Website";
-"settings.section.about.about.app" = "About App";
-"settings.section.about.about.app.title" = "About App";
-"settings.section.about.about.app.version" = "Version";
-"settings.section.about.about.app.changelog" = "Changelog";
+"settings.section.app.appearance.title" = "Приложение";
+"settings.section.app.appearance" = "Внешний вид";
+"settings.section.app.appearance.toggle.header" = "СВЕТЛАЯ И ТЕМНАЯ ТЕМА";
+"settings.section.app.appearance.toggle.footer" = "При включённом индикаторе повторяется системное оформление.";
+"settings.section.app.appearance.toggle.title" = "Автоматически";
+"settings.section.app.appearance.switch.light" = "Всегда светлая";
+"settings.section.app.appearance.switch.dark" = "Всегда темная";
+"settings.section.app.appearance.switch.footer" = "Будет использоваться выбранное оформление. Системное оформление игнорируется.";
+"settings.section.app.language" = "Язык";
+"settings.section.feedback.title" = "Тех. Поддержка";
+"settings.section.feedback.write.review" = "Написать отзыв";
+"settings.section.feedback.contact.developer" = "Связаться с разработчиком";
+"settings.section.feedback.site" = "Сайт";
+"settings.section.about.about.app" = "О приложении";
+"settings.section.about.about.app.title" = "О приложении";
+"settings.section.about.about.app.version" = "Версия";
+"settings.section.about.about.app.changelog" = "Список изменений";
 
