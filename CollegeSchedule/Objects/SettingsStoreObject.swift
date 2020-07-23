@@ -22,11 +22,7 @@ class SettingsStore: ObservableObject {
             UserDefaults.standard.set(self.isAppearanceAutomatically, forKey: Keys.appearanceAutomatically)
 
             DispatchQueue.main.async {
-                if(self.isAppearanceAutomatically) {
-                    UIApplication.keyWindow?.overrideUserInterfaceStyle = .unspecified
-                } else {
-                    UIApplication.keyWindow?.overrideUserInterfaceStyle = self.appearance
-                }
+                UIApplication.keyWindow?.overrideUserInterfaceStyle = self.isAppearanceAutomatically ? .unspecified : self.appearance
             }
         }
     }

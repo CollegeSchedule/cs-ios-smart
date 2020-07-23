@@ -11,4 +11,14 @@ extension UIView {
             self.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
         ])
     }
+    
+    static func initView<T: UIView>(of type: T.Type = T.self, handler: (T) -> Void) -> T {
+        let view = T()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        handler(view)
+        
+        return view
+    }
 }

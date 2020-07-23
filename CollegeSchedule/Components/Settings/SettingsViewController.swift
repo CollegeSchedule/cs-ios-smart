@@ -2,13 +2,21 @@ import UIKit
 import SwiftUI
 
 class SettingsViewController: UIViewController {
-    private let settingsView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
+    private let settingsView: UITableView = UITableView(frame: .zero, style: .insetGrouped) 
 
     private let rows: [SettingsSection] = [
         SettingsSection(
             items: [
                 SettingsRow(
-                    title: "",
+                    destinationAction: {
+                        let controller: SettingsAuthenticationViewController = SettingsAuthenticationViewController()
+                        let navigationController: UINavigationController = UINavigationController(rootViewController: controller)
+
+                        navigationController.navigationItem.largeTitleDisplayMode = .never
+
+                        return navigationController
+                    },
+                    destinationType: .present,
                     special: .cellAuthentication
                 )
             ]
@@ -72,12 +80,6 @@ class SettingsViewController: UIViewController {
                     }()
                 )
             ]
-        ),
-        SettingsSection(
-//            header: "settings.section.about.about.app.title".localized(),
-            items: [
-
-            ]
         )
     ]
 
@@ -100,30 +102,24 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = self.rows[indexPath.section].items[indexPath.row]
-        var cell: UITableViewCell? = nil
+        let cell: UITableViewCell = row.special == SettingsRow.Special.cellAuthentication
+            ? tableView.dequeueReusableCell(withIdentifier: "settings_authentication", for: indexPath)
+            : tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
 
-        if(row.special == SettingsRow.Special.cellAuthentication) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "settings_authentication", for: indexPath)
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = row.title
+
+        if let icon = row.icon {
+            cell.imageView?.image = UIImage(systemName: icon)?
+                .imageWithInsets(insets: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))?
+                .withTintColor(.white, renderingMode: .automatic)
         }
 
-        if let cell = cell {
-            cell.accessoryType = .disclosureIndicator
-            cell.textLabel?.text = row.title
+        cell.imageView?.backgroundColor = row.color
+        cell.imageView?.contentMode = .scaleAspectFit
+        cell.imageView?.layer.cornerRadius = 8
 
-            if let icon = row.icon {
-                cell.imageView?.image = UIImage(systemName: icon)?
-                    .imageWithInsets(insets: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))?
-                    .withTintColor(.white, renderingMode: .automatic)
-            }
-
-            cell.imageView?.backgroundColor = row.color
-            cell.imageView?.contentMode = .scaleAspectFit
-            cell.imageView?.layer.cornerRadius = 8
-        }
-
-        return cell!
+        return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -134,18 +130,15 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let row = self.rows[indexPath.section].items[indexPath.row]
 
         if let destination = row.destination {
-            switch (row.destinationType ?? SettingsRow.DestinationType.push) {
-                case .present:
-                    self.navigationController?.present(destination, animated: true)
-                    break;
-                case .push:
-                    self.navigationController?.pushViewController(destination, animated: true)
-                    break;
-            }
+            self.present(destination: destination, destinationType: row.destinationType ?? SettingsRow.DestinationType.push)
+        } else if let destinationAction = row.destinationAction {
+            let destination: UIViewController = destinationAction()
+
+            self.present(destination: destination, destinationType: row.destinationType ?? SettingsRow.DestinationType.push)
         } else if let action = row.action {
             action()
         }
-
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -159,6 +152,20 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         self.rows.count
+    }
+}
+
+extension SettingsViewController {
+    private func present(destination: UIViewController, destinationType: SettingsRow.DestinationType) {
+        switch (destinationType) {
+            case .present:
+                self.navigationController?.present(destination, animated: true)
+                break;
+            case .push:
+                //self.navigationController?.pushViewController(destination, animated: true)
+                self.splitViewController?.showDetailViewController(UINavigationController(rootViewController: destination), sender: nil)
+                break;
+        }
     }
 }
 

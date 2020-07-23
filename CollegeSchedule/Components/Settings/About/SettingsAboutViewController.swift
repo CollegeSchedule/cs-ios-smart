@@ -54,9 +54,7 @@ extension SettingsAboutViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = self.rows[indexPath.section].items[indexPath.row]
 
-        if let action = row.action {
-            action()
-        }
+        row.action?()
 
         self.settingsView.deselectRow(at: indexPath, animated: true)
     }

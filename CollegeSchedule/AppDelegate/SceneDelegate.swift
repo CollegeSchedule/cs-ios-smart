@@ -3,48 +3,76 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
         let tabController: UITabBarController = UITabBarController()
 
-        let todayView: some View = TodayView().environment(\.managedObjectContext, context)
-        let todayHostingController: UIHostingController = UIHostingController(rootView: todayView)
+        //
+        // MARK: - First view
+        //
+        let todayHostingController: TodayViewController = TodayViewController()
         let todayNavigationController: UINavigationController = UINavigationController(
                 rootViewController: todayHostingController
         )
 
-        todayHostingController.title = "Today"
-        todayHostingController.tabBarItem.image = UIImage(systemName: "house.fill")
+        todayHostingController.title = "today.title".localized()
+        todayHostingController.tabBarItem.image = UIImage(systemName: "house")
         todayNavigationController.navigationBar.prefersLargeTitles = true
 
-        let searchView: some View = SearchView().environment(\.managedObjectContext, context)
+        //
+        // MARK: - Second view
+        //
+        
+        let scheduleHostingController: ScheduleViewController = ScheduleViewController()
+        let scheduleNavigationController: UINavigationController = UINavigationController(
+                rootViewController: scheduleHostingController
+        )
+        
+        scheduleHostingController.title = "schedule.title".localized()
+        scheduleHostingController.tabBarItem.image = UIImage(systemName: "alarm")
+        scheduleNavigationController.navigationBar.prefersLargeTitles = true
+        
+        //
+        // MARK: - Third view
+        //
+        let searchView: some View = SearchView()
         let searchHostingController: UIHostingController = UIHostingController(rootView: searchView)
         let searchNavigationController: UINavigationController = UINavigationController(
                 rootViewController: searchHostingController
         )
-
-        searchHostingController.title = "Search"
+        
+        searchHostingController.title = "search.title".localized()
         searchHostingController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
         searchHostingController.navigationItem.searchController = UISearchController(searchResultsController: nil)
         searchNavigationController.navigationBar.prefersLargeTitles = true
 
-        //let settingsView: some View = SettingsView().environment(\.managedObjectContext, context)
-        //let settingsHostingController: UIHostingController = UIHostingController(rootView: settingsView)
-        let settingsHostingController: SettingsViewController = SettingsViewController()
-        let settingsNavigationController: UINavigationController = UINavigationController(
-                rootViewController: settingsHostingController
-        )
-
-        settingsHostingController.title = "Settings"
-        settingsHostingController.tabBarItem.image = UIImage(systemName: "gear")
-        settingsNavigationController.navigationBar.prefersLargeTitles = true
-
+        //
+        // MARK: - Fourth view
+        //
+        let settingsMasterViewController: SettingsViewController = SettingsViewController()
+        let settingsMasterNavigationController: UINavigationController = UINavigationController(rootViewController: settingsMasterViewController)
+        
+        let settingsDetailViewController: SettingsAppearanceViewController = SettingsAppearanceViewController()
+        let settingsDetailNavigationController: UINavigationController = UINavigationController(rootViewController: settingsDetailViewController)
+        
+        let splitViewController: UISplitViewController = UISplitViewController()
+        
+        splitViewController.viewControllers = [settingsMasterNavigationController, settingsDetailNavigationController]
+//        splitViewController.preferredDisplayMode = .allVisible
+        splitViewController.tabBarItem.image = UIImage(systemName: "gear")
+        splitViewController.title = "settings.title".localized()
+        splitViewController.delegate = self
+        
+        settingsMasterViewController.navigationController?.navigationBar.prefersLargeTitles = true
+        settingsMasterViewController.title = "settings.title".localized()
+        
+        settingsDetailViewController.title = "settings.section.app.appearance".localized()
+        
         tabController.viewControllers = [
             todayNavigationController,
+            scheduleNavigationController,
             searchNavigationController,
-            settingsNavigationController
+            splitViewController
         ]
 
         if let windowScene = scene as? UIWindowScene {
@@ -53,18 +81,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             if(!SettingsStore.instance.isAppearanceAutomatically) {
                 self.window!.overrideUserInterfaceStyle = SettingsStore.instance.appearance
             }
-
+                    
             UINavigationBar.appearance().tintColor = .systemPink
             UITableViewCell.appearance().tintColor = .systemPink
             UITabBar.appearance().tintColor = .systemPink
+            UIButton.appearance().tintColor = .systemPink
             
             self.window!.rootViewController = tabController
             self.window!.makeKeyAndVisible()
         }
     }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+    
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        if(!SettingsStore.instance.isAppearanceAutomatically) {
+            self.window?.overrideUserInterfaceStyle = SettingsStore.instance.appearance
+        }
     }
 }
 
+extension SceneDelegate: UISplitViewControllerDelegate {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
+    }
+}
